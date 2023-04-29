@@ -1,5 +1,23 @@
-.about-me__profile-photo{
+.about-me {
+  display: flex;
+}
+.about-me__wrapper {
+  margin-top: 131px;
+}
+.about-me__profile-photo {
   border-radius: 1000px;
   max-width: 464px;
   max-height: 464px;
+  margin: 80px 56px 80px 104px;
+}
+.about-me__header {
+  font-family: Roboto Slab;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 46px;
+  color: #1A1B22;
+}
+.about-me__description{
+  margin-top: 24px;
+  max-width: 600px;
 }

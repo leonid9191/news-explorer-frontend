@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 104px;
+}
+.footer__navigation {
+  display: flex;
+  justify-content: space-between;
+}
+.footer__navigation-list {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}

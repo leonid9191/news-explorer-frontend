@@ -5,13 +5,13 @@ export function Footer() {
   const dateYear = new Date().getFullYear();
   return (
     <footer className="footer">
-      <p className="footer__copyright">&copy; {dateYear} © 2021 Supersite, Powered by News API</p>
-      <nav>
-        <ul>
+      <p className="footer__copyright">&copy; {dateYear} Supersite, Powered by News API</p>
+      <nav className='footer__navigation'>
+        <ul className='footer__navigation-list'>
           <li>Home</li>
           <li>Practicum</li>
         </ul>
-        <ul>
+        <ul className='footer__navigation-list'>
           <li>
             <img src={github} alt="github" />
           </li>
