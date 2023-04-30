@@ -1,0 +1,48 @@
+.new-card-list {
+  padding-top: 80px;
+  padding-bottom: 100px;
+  background: #f5f6f7;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+.new-card-list__title {
+  align-self: start;
+  margin: 0;
+  padding-left: 104px;
+  font-family: "Roboto Slab";
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 46px;
+  color: #1a1b22;
+}
+.new-card-list__items {
+  margin-top: 64px;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 400px);
+  column-gap: 16px;
+  row-gap: 16px;
+}
+.new-card-list__button {
+  margin: 0 auto;
+  border: none;
+  background: #fff;
+  border: none;
+  border-radius: 80px;
+  color: #1a1b22;
+  cursor: pointer;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  margin-top: 64px;
+  max-width: 288px;
+  padding: 20px 98px;
+  transition: background-color 0.3s ease-in-out;
+}
+.new-card-list__button:hover {
+  background: #e8e8e8;
+  opacity: 0.9;
+}

@@ -1,0 +1,48 @@
+.new-card {
+  height: 576px;
+  width: 400px;
+  cursor: pointer;
+  background-color: #ffffff;
+  overflow: hidden;
+  border-radius: 20px;
+}
+.new-card__date {
+  margin: 0;
+  padding-top: 20px;
+  padding-left: 24px;
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  color: #b6bcbf;
+}
+.new-card__header {
+  margin: 0;
+  padding: 12px 24px 0 24px;
+  font-family: "Roboto Slab";
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+  color: #1a1b22;
+}
+.new-card__description {
+  margin: 0;
+  padding: 16px 24px 0 24px;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1a1b22;
+}
+.new-card__source {
+  margin: 0;
+  padding: 18px 0px 24px 24px;
+  font-family: "Roboto Slab";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #b6bcbf;
+}
