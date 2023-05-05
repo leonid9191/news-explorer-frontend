@@ -2,3 +2,13 @@
   background: url('../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.png') no-repeat;
   height: 576px;
 }
+@media screen and (max-width: 768px) {
+  .main {
+    height: 400px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .main {
+    height: 536px;
+  }
+}

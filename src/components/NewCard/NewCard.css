@@ -5,6 +5,7 @@
   background-color: #ffffff;
   overflow: hidden;
   border-radius: 20px;
+  position: relative;
 }
 .new-card__date {
   margin: 0;
@@ -45,4 +46,90 @@
   letter-spacing: 0.4px;
   text-transform: uppercase;
   color: #b6bcbf;
+}
+.label {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+}
+.label__container {
+  display: flex;
+  align-items: center;
+}
+.label__tip {
+  display: none;
+  margin: 0 5px 0 0;
+  padding: 13px 35px;
+  max-width: 182px;
+  background-color: #ffff;
+  border-radius: 10px;
+  overflow: hidden;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+}
+.label__button {
+  background-image: url("../../images/label.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  background-color: initial;
+  border: none;
+  transition: 0.3s;
+}
+.label__button:hover {
+  background-image: url("../../images/label_active.svg");
+}
+
+@media screen and (max-width: 768px) {
+  .new-card {
+    height: 420px;
+    width: 224px;
+  }
+  .new-card__date {
+    padding-top: 16px;
+    padding-left: 15px;
+  }
+  .new-card__header {
+    padding: 12px 16px 0 16px;
+    font-size: 22px;
+    line-height: 24px;
+  }
+  .new-card__description {
+    padding: 10px 16px 0 16px;
+    height: 88px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .new-card__image {
+    height: 150px;
+  }
+  .new-card__source {
+    padding: 12px 0px 16px 16px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .new-card {
+    height: 440px;
+    width: 288px;
+  }
+  .new-card__date {
+    padding-top: 16px;
+    padding-left: 16px;
+  }
+  .new-card__header {
+    padding: 10px 16px 0 16px;
+  }
+  .new-card__description {
+    padding: 14px 16px 0 16px;
+    height: 66px;
+  }
+  .new-card__image {
+    height: 196px;
+  }
+  .new-card__source {
+    padding: 8x 0px 16px 16px;
+  }
 }

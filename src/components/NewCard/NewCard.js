@@ -3,6 +3,12 @@ export function NewCard() {
   return (
     <div className="new-card">
       <img src={photo} alt="card" className="new-card__image" />
+      <div className="label">
+        <div className="label__container">
+          <span className="label__tip">Sign in to save articles</span>
+          <button className="label__button"></button>
+        </div>
+      </div>
       <p className="new-card__date">November 4, 2020</p>
       <h3 className="new-card__header">
         Everyone Needs a Special 'Sit Spot' in Nature
