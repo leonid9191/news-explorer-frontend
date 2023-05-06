@@ -1,11 +1,12 @@
-export function PopupWithForm() {
+export function PopupWithForm({isOpen, onClose}) {
   return (
-    <div className="popup">
+    <div className={`popup ${isOpen && 'popup-active'}`}>
       <div className="popup__window">
         <button
           type="button"
           className="popup__close-button"
           aria-label="close"
+          onClick={onClose}
         ></button>
 
         <h2 className="popup__title">Sign in</h2>

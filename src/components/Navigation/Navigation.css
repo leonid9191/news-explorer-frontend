@@ -4,7 +4,45 @@
   display: flex;
   align-items: center;
   gap: 42px;
-  display: none;
+}
+
+.navigation__container {
+  grid-gap: 42px;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation__home {
+  display: flex;
+  align-items: center;
+  color: #B6BCBF;
+  text-decoration: none;
+  cursor: pointer;
+  max-width: 70px;
+  height: 80px;
+  
+}
+.navigation__saved {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  max-width: 115px;
+  height: 80px;
+  color: #B6BCBF;
+}
+
+.active-white{
+  color: #ffffff;
+  border-bottom: 3px solid #ffffff;
+}
+.active-black{
+  color: #1A1B22;
+  border-bottom: 3px solid #1A1B22;
 }
 
 .navigation__button {
@@ -13,17 +51,15 @@
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
-  max-width: 70px;
-  height: 80px;
-  border-bottom: 3px solid #ffffff;
-}
-
-.navigation__button:last-child {
   justify-content: center;
   border: 1px solid #ffffff;
   border-radius: 100px;
   min-width: 176px;
   height: 48px;
+}
+
+.hamburger {
+  display: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -34,14 +70,26 @@
     line-height: 24px;
   }
 
-  .navigation__button {
+  .navigation__home {
     height: 65px;
   }
 
-  .navigation__button:last-child {
+  .navigation__button{
     min-width: 152px;
     height: 40px;
   }
 }
 @media screen and (max-width: 480px) {
+  .navigation__container{
+    display: none;
+  }
+  .hamburger {
+    display:flex;
+    z-index: 10;
+    background-image: url('../../images/menuburger-cross.png');
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+  }
 }

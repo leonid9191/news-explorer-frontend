@@ -1,11 +1,13 @@
 import { Logo } from "../Logo/Logo";
 import { Navigation } from "../Navigation/Navigation";
 
-export function Header() {
+export function Header({handleLoginClick}) {
   return (
     <div className="header">
       <Logo />
-      <Navigation />
+      <Navigation 
+      handleLoginClick={handleLoginClick}
+      />
     </div>
   );
 }

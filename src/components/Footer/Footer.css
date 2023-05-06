@@ -1,10 +1,10 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  margin: 0 104px;
+  margin: 16px 106px 10px 104px ;
 }
 .footer__copyright {
-  margin: 0;
+  /* margin: 0; */
   font-size: 16px;
   line-height: 22px;
   color: #b6bcbf;
@@ -12,15 +12,17 @@
 .footer__navigation {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 40px;
 }
 .footer__navigation-list {
+  cursor: pointer;
   padding: 0;
   margin: 0;
   list-style-type: none;
   display: flex;
   justify-content: space-between;
   gap: 40px;
-  line-height: 48px;
 }
 @media screen and (max-width: 768px){
   .footer {
@@ -38,7 +40,6 @@
   }
   .footer__navigation{
     width: 288px;
-
   }
   .footer__navigation-list{
     display: flex;

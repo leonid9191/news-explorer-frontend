@@ -80,6 +80,7 @@
   transition: 0.3s;
 }
 .label__button:hover {
+  cursor: pointer;
   background-image: url("../../images/label_active.svg");
 }
 
@@ -99,7 +100,7 @@
   }
   .new-card__description {
     padding: 10px 16px 0 16px;
-    height: 88px;
+    max-height: 88px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
