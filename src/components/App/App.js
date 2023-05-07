@@ -14,9 +14,12 @@ import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
 
 function App() {
   const darkStyle = "_dark";
+
+  //Modals
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
+ 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLoginClick = (e) => {
