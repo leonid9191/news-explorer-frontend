@@ -10,12 +10,15 @@ import { SavedNewsHeader } from "../SavedNewsHeader/SavedNewsHeader";
 import { SavedNews } from "../SavedNews/SavedNews";
 import { useState, useEffect } from "react";
 import { MobileMenu } from "../MobileMenu/MobileMenu";
+import { LogIn } from "../LogInForm/LogInForm";
+import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
 
 function App() {
   const darkStyle = "_dark";
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLoginClick = (e) => {
     e.preventDefault();
@@ -54,6 +57,7 @@ function App() {
   return (
     <div className="app">
       <MobileMenu
+        handleLoginClick={handleLoginClick}
         isLoggedIn={isLoggedIn}
         isOpen={isMobileMenuOpen}
         onClose={closeAllPopups}
@@ -87,7 +91,22 @@ function App() {
           }
         />
       </Routes>
-      <PopupWithForm isOpen={isLoginOpen} onClose={closeAllPopups} />
+      <LogIn
+        openModal={() => {
+          setIsLoginOpen(false);
+          setIsRegisterOpen(true);
+        }}
+        isOpen={isLoginOpen}
+        onClose={closeAllPopups}
+      />
+      <RegistrationForm
+        openModal={() => {
+          setIsRegisterOpen(false);
+          setIsLoginOpen(true);
+        }}
+        isOpen={isRegisterOpen}
+        onClose={closeAllPopups}
+      />
     </div>
   );
 }

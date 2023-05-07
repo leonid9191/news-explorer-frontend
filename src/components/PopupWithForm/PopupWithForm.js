@@ -1,6 +1,8 @@
-export function PopupWithForm({isOpen, onClose}) {
+import { Children } from "react";
+
+export function PopupWithForm({ title, isOpen, onClose, children }) {
   return (
-    <div className={`popup ${isOpen && 'popup-active'}`}>
+    <div className={`popup ${isOpen && "popup-active"}`}>
       <div className="popup__window">
         <button
           type="button"
@@ -9,34 +11,8 @@ export function PopupWithForm({isOpen, onClose}) {
           onClick={onClose}
         ></button>
 
-        <h2 className="popup__title">Sign in</h2>
-        <form className="form">
-          <fieldset className="form__register">
-            <label className="form__label"  htmlFor="email">Email</label>
-            <input
-              required
-              name="email"
-              type="email"
-              placeholder="Email"
-              className="form__input"
-            />
-            <label className="form__label" htmlFor="password">Password</label>
-            <input
-              required
-              name="password"
-              type="password"
-              placeholder="Password"
-              className="form__input"
-            />
-          </fieldset>
-          <button type="submit" className="form__button">
-            Sign in
-          </button>
-          <div className="form__redirect">
-            <span>or</span>
-            <button className="form__redirect__link">Sign up</button>
-          </div>
-        </form>
+        <h2 className="popup__title">{title}</h2>
+        {children}
       </div>
     </div>
   );

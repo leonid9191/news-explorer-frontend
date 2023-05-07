@@ -117,8 +117,8 @@
     z-index: 10;
     background-image: url('../../images/menuburger-cross.svg');
     background-repeat: no-repeat;
-    width: 40px;
-    height: 40px;
+    width: 24px;
+    height: 24px;
     background-size: cover;
   }
 }
