@@ -24,7 +24,15 @@
   cursor: pointer;
   max-width: 70px;
   height: 80px;
-  
+}
+.navigation__home_dark {
+  display: flex;
+  align-items: center;
+  color: #1A1B22;
+  text-decoration: none;
+  cursor: pointer;
+  max-width: 70px;
+  height: 80px;
 }
 .navigation__saved {
   display: flex;
@@ -35,12 +43,21 @@
   height: 80px;
   color: #B6BCBF;
 }
+.navigation__saved_dark {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
+  max-width: 115px;
+  height: 80px;
+  color: #1A1B22;
+}
 
-.active-white{
+.navigation__link_active{
   color: #ffffff;
   border-bottom: 3px solid #ffffff;
 }
-.active-black{
+.navigation__link_active_dark{
   color: #1A1B22;
   border-bottom: 3px solid #1A1B22;
 }
@@ -57,8 +74,20 @@
   min-width: 176px;
   height: 48px;
 }
+.navigation__button_dark {
+  display: flex;
+  align-items: center;
+  color: #1A1B22;
+  text-decoration: none;
+  cursor: pointer;
+  justify-content: center;
+  border: 1px solid #1A1B22;
+  border-radius: 100px;
+  min-width: 176px;
+  height: 48px;
+}
 
-.hamburger {
+.navigation__hamburger {
   display: none;
 }
 
@@ -83,10 +112,10 @@
   .navigation__container{
     display: none;
   }
-  .hamburger {
+  .navigation__hamburger {
     display:flex;
     z-index: 10;
-    background-image: url('../../images/menuburger-cross.png');
+    background-image: url('../../images/menuburger-cross.svg');
     background-repeat: no-repeat;
     width: 40px;
     height: 40px;

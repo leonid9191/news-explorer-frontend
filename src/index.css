@@ -2,7 +2,6 @@
 @import "./vendor/fonts.css";
 @import "./components/App/App.css";
 @import "./components/Header/Header.css";
-@import "./components/Hamburger/Hamburger.css";
 @import "./components/Logo/Logo.css";
 @import "./components/Navigation/Navigation.css";
 @import "./components/Main/Main.css";
@@ -12,5 +11,5 @@
 @import "./components/NewsCardList/NewCardList.css";
 @import "./components/PopupWithForm/PopupWithForm.css";
 @import "./components/SavedNewsHeader/SavedNewsHeader.css";
-
+@import "./components/MobileMenu/MobileMenu.css";
 @import "./components/Footer/Footer.css";
