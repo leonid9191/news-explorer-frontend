@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 
@@ -29,12 +28,12 @@ export function Navigation({openHamburger, handleLoginClick, darkStyle = "" }) {
           </NavLink>
         </li>
         <li className="navigation__link">
-          <a
+          <button
             onClick={handleLoginClick}
             className={`navigation__button${darkStyle}`}
           >
             Sign In
-          </a>
+          </button>
         </li>
       </ul>
       <div className="navigation__hamburger" onClick={openHamburger}></div>

@@ -1,5 +1,3 @@
-import { Children } from "react";
-
 export function PopupWithForm({ title, isOpen, onClose, children }) {
   return (
     <div className={`popup ${isOpen && "popup-active"}`}>

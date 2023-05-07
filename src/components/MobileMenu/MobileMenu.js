@@ -31,18 +31,18 @@ export function MobileMenu({
                 >
                   Saved articles
                 </NavLink>
-                <a
+                <button
                   className="mobile-menu__button navigation__button"
                   onClick={onLogout}
-                >Sign out</a>
+                >Sign out</button>
               </>
             ) : (
-              <a
+              <button
                 className="mobile-menu__button navigation__button"
                 onClick={handleLoginClick}
               >
                 Sign in
-              </a>
+              </button>
             )}
           </div>
         </div>

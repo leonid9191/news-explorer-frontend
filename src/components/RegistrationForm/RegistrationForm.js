@@ -35,7 +35,7 @@ export function RegistrationForm({ openModal, isOpen, onClose }) {
           </button>
           <div className="form__redirect">
             <span>or </span>
-            <a onClick={openModal} className="form__redirect__link">Sign in</a>
+            <button onClick={openModal} className="form__redirect__link">Sign in</button>
           </div>
         </form>
     </PopupWithForm>

@@ -3,8 +3,7 @@ import { AboutMe } from "../AboutMe/AboutMe";
 import "./App.css";
 import { Footer } from "../Footer/Footer";
 import { NewCardList } from "../NewsCardList/NewCardList";
-import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
-import { browserHistory, Router, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import { Header } from "../Header/Header";
 import { SavedNewsHeader } from "../SavedNewsHeader/SavedNewsHeader";
 import { SavedNews } from "../SavedNews/SavedNews";
@@ -28,6 +27,7 @@ function App() {
   const closeAllPopups = () => {
     setIsLoginOpen(false);
     setIsMobileMenuOpen(false);
+    setIsRegisterOpen(false);
   };
 
   //close popups by ESC
@@ -92,7 +92,8 @@ function App() {
         />
       </Routes>
       <LogIn
-        openModal={() => {
+        openModal={(e) => {
+          e.preventDefault();
           setIsLoginOpen(false);
           setIsRegisterOpen(true);
         }}
@@ -100,7 +101,8 @@ function App() {
         onClose={closeAllPopups}
       />
       <RegistrationForm
-        openModal={() => {
+        openModal={(e) => {
+          e.preventDefault();
           setIsRegisterOpen(false);
           setIsLoginOpen(true);
         }}
