@@ -13,6 +13,7 @@ import { LogIn } from "../LogInForm/LogInForm";
 import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
 
 function App() {
+  //Styles
   const darkStyle = "_dark";
 
   //Modals
@@ -20,12 +21,18 @@ function App() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
  
+  //Status
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLoginClick = (e) => {
     e.preventDefault();
     setIsLoginOpen(true);
   };
+  const handleLoggedIn = (e) => {
+    e.preventDefault();
+    setIsLoggedIn(true);
+    closeAllPopups(); 
+  }
 
   const closeAllPopups = () => {
     setIsLoginOpen(false);
@@ -74,6 +81,7 @@ function App() {
               <Main
                 openHamburger={() => setIsMobileMenuOpen(true)}
                 handleLoginClick={handleLoginClick}
+                isLoggedIn={isLoggedIn}
               />
               <NewCardList />
               <AboutMe />
@@ -95,6 +103,7 @@ function App() {
         />
       </Routes>
       <LogIn
+        onLoggedIn = {handleLoggedIn}
         openModal={(e) => {
           e.preventDefault();
           setIsLoginOpen(false);

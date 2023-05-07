@@ -1,6 +1,6 @@
 import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 
-export function LogIn({openModal, isOpen, onClose }) {
+export function LogIn({onLoggedIn, openModal, isOpen, onClose }) {
   return(
     <PopupWithForm title={'Sign in'} isOpen={isOpen} onClose={onClose}>
       <form className="form" noValidate>
@@ -22,7 +22,7 @@ export function LogIn({openModal, isOpen, onClose }) {
               className="form__input"
             />
           </fieldset>
-          <button type="submit" className="form__button">
+          <button type="submit" onClick={onLoggedIn} className="form__button">
             Sign in
           </button>
           <div className="form__redirect">

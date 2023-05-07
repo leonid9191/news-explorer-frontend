@@ -1,7 +1,11 @@
 import { NavLink } from "react-router-dom";
 
-
-export function Navigation({openHamburger, handleLoginClick, darkStyle = "" }) {
+export function Navigation({
+  openHamburger,
+  handleLoginClick,
+  darkStyle = "",
+  isLoggedIn
+}) {
   const route = window.location.pathname;
 
   return (
@@ -17,16 +21,20 @@ export function Navigation({openHamburger, handleLoginClick, darkStyle = "" }) {
             Home
           </NavLink>
         </li>
-        <li className="navigation__link">
-          <NavLink
-            to="/saved-news"
-            className={`navigation__saved${darkStyle} ${
-              route === "/" ? "" : `navigation__link_active${darkStyle}`
-            }`}
-          >
-            Saved articles
-          </NavLink>
-        </li>
+        {isLoggedIn ? (
+          <li className="navigation__link">
+            <NavLink
+              to="/saved-news"
+              className={`navigation__saved${darkStyle} ${
+                route === "/" ? "" : `navigation__link_active${darkStyle}`
+              }`}
+            >
+              Saved articles
+            </NavLink>
+          </li>
+        ) : (
+          ""
+        )}
         <li className="navigation__link">
           <button
             onClick={handleLoginClick}
