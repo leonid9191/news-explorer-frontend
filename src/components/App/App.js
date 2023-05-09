@@ -12,21 +12,46 @@ import { MobileMenu } from "../MobileMenu/MobileMenu";
 import { LogIn } from "../LogInForm/LogInForm";
 import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
 import { SuccessRegistration } from "../SuccessRegistration/SuccessRegistration";
-
+import { NewsApi } from "../../utils/NewsExplorerApi";
+import { Preloader } from "../Preloader/Preloader";
+import NothingFound from "../NothingFound/NothingFound";
 function App() {
   const userHistory = useNavigate();
   //Styles
   const darkStyle = "_dark";
+  const [isLoading, setIsLoading] = useState("_hidden");
+  const [isNothingFound, setIsNothingFound] = useState("_hidden");
+  const [isNewsResults, setIsNewsResults] = useState("_hidden");
 
   //Modals
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSuccessRegistration, setSuccessRegistration] = useState(false);
 
   //Status
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [keyword, setKeyword] = useState("");
+  const [searchKeywords, setSearchKeywords] = useState([]);
 
+  const [cards, setCards] = useState([]);
+  const [savedCards, setSavedCards] = useState([]);
+
+  // useEffect(() => {
+  //   console.log(savedCards)
+  //   localStorage.setItem("save", savedCards)
+  // },[savedCards])
+
+  const handleNewsResults = () => {
+    setIsNewsResults("");
+    setIsNothingFound("_hidden");
+    setIsLoading("_hidden");
+  };
+  const handleNothingFound = () => {
+    setIsNewsResults("_hidden");
+    setIsLoading("_hidden");
+    setIsNothingFound("");
+  };
   const handleLoginClick = (e) => {
     e.preventDefault();
     setIsLoginOpen(true);
@@ -46,14 +71,55 @@ function App() {
   const successRegistration = () => {
     setIsRegisterOpen(false);
     setSuccessRegistration(true);
-        
-  }
+  };
+
+  //save card
+  const handleSaveCard = (card) => {
+    setSavedCards([card, ...savedCards]);
+    localStorage.setItem("save", savedCards);
+  };
+  //delete card
+  const handleDeleteCard = (card) => {
+    const newCards = savedCards.filter((c) => c.title !== card.title);
+    localStorage.setItem("save", savedCards);
+    setSavedCards(newCards);
+  };
 
   const closeAllPopups = () => {
     setIsLoginOpen(false);
     setIsMobileMenuOpen(false);
     setIsRegisterOpen(false);
     setSuccessRegistration(false);
+  };
+
+  //News Explorer Api
+  const handleNewsSearch = (userKeyword) => {
+    setIsLoading("");
+    NewsApi.getNews(userKeyword)
+      .then((cardData) => {
+        const newsArticles = cardData.articles;
+        newsArticles.forEach((article) => (article["keyword"] = userKeyword));
+        if (cardData.status === "ok") {
+          if (cardData.totalResults > 0) {
+            setKeyword(userKeyword);
+            setSearchKeywords([keyword, ...searchKeywords]);
+            setCards(newsArticles);
+            handleNewsResults();
+          } else {
+            setIsNewsResults("_hidden");
+            handleNothingFound();
+          }
+        }
+        setIsLoading("_hidden");
+      })
+      .catch((err) => {
+        setIsNewsResults("_hidden");
+
+        if (err.status === 404) {
+          handleNothingFound();
+        }
+        console.log(err);
+      });
   };
 
   //check if user logged in before and save email
@@ -107,8 +173,22 @@ function App() {
                 handleLoginClick={handleLoginClick}
                 isLoggedIn={isLoggedIn}
                 handleLogOut={handleLogOut}
+                handleNewsSearch={handleNewsSearch}
               />
-              <NewCardList />
+              <NewCardList
+                NewsResults={isNewsResults}
+                keyword={keyword}
+                cards={cards}
+                isLoggedIn={isLoggedIn}
+                loginModal={() => {
+                  setIsLoginOpen(true);
+                }}
+                saveCard={handleSaveCard}
+                tipTitle={"Sign in to save articles"}
+                buttonType="save"
+              />
+              <NothingFound isNothingFound={isNothingFound} />
+              <Preloader isLoading={isLoading} />
               <AboutMe />
               <Footer />
             </>
@@ -124,8 +204,12 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 handleLogOut={handleLogOut}
               />
-              <SavedNewsHeader />
-              <SavedNews />
+              <SavedNewsHeader searchKeywords={searchKeywords} />
+              <SavedNews
+                cards={savedCards}
+                isLoggedIn={isLoggedIn}
+                deleteCard={handleDeleteCard}
+              />
               <Footer />
             </>
           }

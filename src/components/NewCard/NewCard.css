@@ -18,6 +18,9 @@
   line-height: 24px;
   color: #b6bcbf;
 }
+.new-card__image {
+  height: 272px;
+}
 .new-card__header {
   margin: 0;
   padding: 12px 24px 0 24px;
@@ -26,6 +29,9 @@
   font-size: 26px;
   line-height: 30px;
   color: #1a1b22;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .new-card__description {
   margin: 0;
@@ -34,11 +40,14 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
+  height: 60px;
   color: #1a1b22;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .new-card__source {
   margin: 0;
-  padding: 18px 0px 24px 24px;
+  padding: 18px 0px 0 24px;
   font-family: "Roboto Slab";
   font-weight: 700;
   font-size: 16px;
@@ -46,6 +55,8 @@
   letter-spacing: 0.4px;
   text-transform: uppercase;
   color: #b6bcbf;
+  position: absolute;
+  bottom: 24px;
 }
 .label {
   position: absolute;
@@ -56,8 +67,34 @@
   display: flex;
   align-items: center;
 }
+.label__keyword{
+  position: absolute;
+  left: -125px;
+  top: 0px;
+  margin: 0 5px 0 0;
+  padding: 13px 35px;
+  max-width: 182px;
+  background-color: #ffff;
+  border-radius: 10px;
+  overflow: hidden;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+}
 .label__tip {
-  display: none;
+  visibility: hidden;
+  margin: 0 5px 0 0;
+  padding: 13px 35px;
+  max-width: 182px;
+  background-color: #ffff;
+  border-radius: 10px;
+  overflow: hidden;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+}
+.label__tip_visible {
+  visibility: visible;
   margin: 0 5px 0 0;
   padding: 13px 35px;
   max-width: 182px;
@@ -83,6 +120,15 @@
   cursor: pointer;
   background-image: url("../../images/label_active.svg");
 }
+.label__button_saved{
+  background-image: url("../../images/label_saved.svg");
+}
+.label__button_trash{
+  background-image: url("../../images/trash.svg");
+}
+.label__button_trash:hover{
+  background-image: url("../../images/trash_hover.svg");
+}
 
 @media screen and (max-width: 768px) {
   .new-card {
@@ -101,8 +147,6 @@
   .new-card__description {
     padding: 10px 16px 0 16px;
     max-height: 88px;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
   .new-card__image {
     height: 150px;

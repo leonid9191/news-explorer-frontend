@@ -1,14 +1,16 @@
 .main {
-  background: url('../../images/georgia-de-lotz--UsJoNxLaNo-unsplash.png') no-repeat;
+  background: url('../../images/main-bg.png') no-repeat;
   height: 576px;
 }
 @media screen and (max-width: 768px) {
   .main {
+    background: url('../../images/main-bg-tablet.png') no-repeat;
     height: 400px;
   }
 }
 @media screen and (max-width: 480px) {
   .main {
+    background: url('../../images/main-bg-mobile.png') no-repeat;
     height: 536px;
   }
 }

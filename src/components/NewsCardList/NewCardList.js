@@ -1,18 +1,48 @@
 import { NewCard } from "../NewCard/NewCard";
+import { useState } from "react";
 
-export function NewCardList() {
+export function NewCardList({
+  NewsResults,
+  cards,
+  isLoggedIn,
+  loginModal,
+  saveCard,
+  tipTitle,
+  buttonType,
+  deleteCard,
+  keyword
+}) {
+  const [initCards, setInitCards] = useState(3);
+  const threeCards = cards.filter((card, index) => index < initCards);
+  const handleShowMore = () => {
+    setInitCards(initCards + 3);
+  };
   return (
-    <section className="new-card-list">
+    <section className={`new-card-list new-card-list${NewsResults}`}>
       <p className="new-card-list__title">Search results</p>
+
       <div className="new-card-list__items">
-        <NewCard />
-        <NewCard />
-        <NewCard />
-        <NewCard />
-        <NewCard />
-        <NewCard />
+        {threeCards.map((card, index) => (
+          <NewCard
+            key={index}
+            card={card}
+            isLoggedIn={isLoggedIn}
+            loginModal={loginModal}
+            saveCard={saveCard}
+            tipTitle={tipTitle}
+            buttonType={buttonType}
+            deleteCard={deleteCard}
+            keyword={keyword}
+          />
+        ))}
       </div>
-      <button className="new-card-list__button">Show more</button>
+      {cards.length > 3 ? (
+        <button className="new-card-list__button" onClick={handleShowMore}>
+          Show more
+        </button>
+      ) : (
+        ""
+      )}
     </section>
   );
 }
