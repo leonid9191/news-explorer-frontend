@@ -10,15 +10,7 @@ export function NewCard({
   deleteCard,
   keyword,
 }) {
-  // const newCard = {
-  //   keyword: keyword,
-  //   title: card.title,
-  //   description: card.description,
-  //   date: card.date,
-  //   source: card.source.name,
-  //   url: card.url,
-  //   image: card.urlToImage,
-  // };
+
   const [isVisible, setIsVisible] = useState("");
   const [isSaved, setIsSaved] = useState("");
   const handleSaveCard = () => {
