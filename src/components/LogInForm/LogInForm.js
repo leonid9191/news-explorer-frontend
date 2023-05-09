@@ -22,12 +22,12 @@ export function LogIn({onLoggedIn, openModal, isOpen, onClose }) {
               className="form__input"
             />
           </fieldset>
-          <button type="submit" onClick={onLoggedIn} className="form__button">
+          <button onClick={onLoggedIn} className="form__button">
             Sign in
           </button>
           <div className="form__redirect">
             <span>or </span>
-            <button onClick={openModal} className="form__redirect__link">Sign up</button>
+            <button onClick={openModal} className="form__redirect_link">Sign up</button>
           </div>
         </form>
     </PopupWithForm>

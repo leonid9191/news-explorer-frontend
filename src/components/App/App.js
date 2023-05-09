@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { MobileMenu } from "../MobileMenu/MobileMenu";
 import { LogIn } from "../LogInForm/LogInForm";
 import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
+import { SuccessRegistration } from "../SuccessRegistration/SuccessRegistration";
 
 function App() {
   const userHistory = useNavigate();
@@ -21,10 +22,10 @@ function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
+  const [isSuccessRegistration, setSuccessRegistration] = useState(false);
 
   //Status
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 
   const handleLoginClick = (e) => {
     e.preventDefault();
@@ -38,16 +39,23 @@ function App() {
   };
   const handleLogOut = (e) => {
     e.preventDefault();
-    localStorage.setItem("jwt", false);
+    localStorage.clear();
     setIsLoggedIn(false);
     userHistory("/");
+  };
+  const successRegistration = () => {
+    setIsRegisterOpen(false);
+    setSuccessRegistration(true);
+        
   }
 
   const closeAllPopups = () => {
     setIsLoginOpen(false);
     setIsMobileMenuOpen(false);
     setIsRegisterOpen(false);
+    setSuccessRegistration(false);
   };
+
   //check if user logged in before and save email
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
@@ -111,7 +119,11 @@ function App() {
           path="/saved-news"
           element={
             <>
-              <Header darkStyle={darkStyle} isLoggedIn={isLoggedIn} handleLogOut={handleLogOut} />
+              <Header
+                darkStyle={darkStyle}
+                isLoggedIn={isLoggedIn}
+                handleLogOut={handleLogOut}
+              />
               <SavedNewsHeader />
               <SavedNews />
               <Footer />
@@ -137,6 +149,16 @@ function App() {
         }}
         isOpen={isRegisterOpen}
         onClose={closeAllPopups}
+        successRegistration={successRegistration}
+      />
+      <SuccessRegistration
+        isOpen={isSuccessRegistration}
+        onClose={closeAllPopups}
+        openModal={(e) => {
+          e.preventDefault();
+          setSuccessRegistration(false);
+          setIsLoginOpen(true);
+        }}
       />
     </div>
   );

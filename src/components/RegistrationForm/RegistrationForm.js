@@ -1,9 +1,9 @@
 import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 
-export function RegistrationForm({ openModal, isOpen, onClose }) {
+export function RegistrationForm({ openModal, isOpen, onClose, successRegistration }) {
   return(
     <PopupWithForm title={'Sign up'} isOpen={isOpen} onClose={onClose}>
-      <form className="form" noValidate>
+      <form className="form">
           <fieldset className="form__register">
             <label className="form__label">Email</label>
             <input
@@ -20,6 +20,7 @@ export function RegistrationForm({ openModal, isOpen, onClose }) {
               type="password"
               placeholder="Enter password"
               className="form__input"
+              minLength={3}
             />
             <label className="form__label">Username</label>
             <input
@@ -28,14 +29,15 @@ export function RegistrationForm({ openModal, isOpen, onClose }) {
               type="text"
               placeholder="Enter your username"
               className="form__input"
+              minLength={3}
             />
           </fieldset>
-          <button type="submit" className="form__button">
+          <button onClick={successRegistration} className="form__button">
             Sign up
           </button>
           <div className="form__redirect">
             <span>or </span>
-            <button onClick={openModal} className="form__redirect__link">Sign in</button>
+            <button onClick={openModal} className="form__redirect_link">Sign in</button>
           </div>
         </form>
     </PopupWithForm>
