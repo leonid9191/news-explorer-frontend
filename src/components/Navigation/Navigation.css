@@ -88,6 +88,12 @@
   min-width: 176px;
   height: 48px;
 }
+.navigation__sign-out{
+  padding: 0 15px;
+}
+.navigation__button_icon{
+  margin-left: 15px;
+}
 
 .navigation__hamburger {
   display: none;
@@ -109,6 +115,7 @@
     min-width: 152px;
     height: 40px;
   }
+
 }
 @media screen and (max-width: 480px) {
   .navigation__container{

@@ -1,11 +1,15 @@
 import { NavLink } from "react-router-dom";
+import icon_black from "../../images/exit.svg"
+import icon_white from "../../images/exit_white.svg"
 
 export function Navigation({
   openHamburger,
   handleLoginClick,
   darkStyle = "",
-  isLoggedIn
+  isLoggedIn,
+  handleLogOut
 }) {
+  const user = "Leonid";
   const route = window.location.pathname;
 
   return (
@@ -35,14 +39,30 @@ export function Navigation({
         ) : (
           ""
         )}
-        <li className="navigation__link">
-          <button
-            onClick={handleLoginClick}
-            className={`navigation__button${darkStyle}`}
-          >
-            Sign In
-          </button>
-        </li>
+        {isLoggedIn ? (
+          <li className="navigation__link">
+            <button
+              onClick={handleLogOut}
+              className={`navigation__button${darkStyle} navigation__sign-out`}
+            >
+              {user}
+              <img
+                className="navigation__button_icon"
+                src={darkStyle ? icon_black : icon_white}
+                alt="exit"
+              />
+            </button>
+          </li>
+        ) : (
+          <li className="navigation__link">
+            <button
+              onClick={handleLoginClick}
+              className={`navigation__button${darkStyle}`}
+            >
+              Sign In
+            </button>
+          </li>
+        )}
       </ul>
       <div className="navigation__hamburger" onClick={openHamburger}></div>
     </div>
