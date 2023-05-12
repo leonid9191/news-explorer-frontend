@@ -3,7 +3,7 @@ import { Navigation } from "../Navigation/Navigation";
 
 export function Header({ openHamburger, handleLoginClick, darkStyle, isLoggedIn, handleLogOut }) {
   return (
-    <div className="header">
+    <header className="header">
       <Logo darkStyle={darkStyle} />
       <Navigation
         darkStyle={darkStyle}
@@ -12,6 +12,6 @@ export function Header({ openHamburger, handleLoginClick, darkStyle, isLoggedIn,
         isLoggedIn = {isLoggedIn}
         handleLogOut = {handleLogOut}
       />
-    </div>
+    </header>
   );
 }

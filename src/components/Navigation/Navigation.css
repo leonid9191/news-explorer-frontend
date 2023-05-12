@@ -3,7 +3,6 @@
   font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 42px;
 }
 
 .navigation__container {
@@ -117,17 +116,52 @@
   }
 
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 650px) {
   .navigation__container{
     display: none;
   }
   .navigation__hamburger {
     display:flex;
     z-index: 10;
-    background-image: url('../../images/menuburger-cross.svg');
     background-repeat: no-repeat;
     width: 24px;
     height: 24px;
     background-size: cover;
+    background-image: url('../../images/menuburger-cross.svg');
+  }
+  .navigation__hamburger_black{
+    display:flex;
+    z-index: 10;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    background-image: url('../../images/menuburger-cross-black.svg');
+  }
+}
+@media screen and (max-width: 480px) {
+  .navigation {
+    padding-right: 16px;
+  }
+  .navigation__container{
+    display: none;
+  }
+  .navigation__hamburger {
+    display:flex;
+    z-index: 10;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    background-image: url('../../images/menuburger-cross.svg');
+  }
+  .navigation__hamburger_black{
+    display:flex;
+    z-index: 10;
+    background-repeat: no-repeat;
+    width: 24px;
+    height: 24px;
+    background-size: cover;
+    background-image: url('../../images/menuburger-cross-black.svg');
   }
 }

@@ -12,14 +12,15 @@ export function NewCardList({
   deleteCard,
   keyword
 }) {
+  const route = window.location.pathname;
   const [initCards, setInitCards] = useState(3);
   const threeCards = cards.filter((card, index) => index < initCards);
   const handleShowMore = () => {
     setInitCards(initCards + 3);
   };
   return (
-    <section className={`new-card-list new-card-list${NewsResults}`}>
-      <p className="new-card-list__title">Search results</p>
+    <section className={`new-card-list${NewsResults}`}>
+      {route === '/saved-news' ? '' : <p className="new-card-list__title">Search results</p>}
 
       <div className="new-card-list__items">
         {threeCards.map((card, index) => (

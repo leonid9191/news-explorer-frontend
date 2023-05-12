@@ -68,6 +68,10 @@ function App() {
     setIsLoggedIn(false);
     userHistory("/");
   };
+  const handleOpenHamburger = () => {
+    setIsMobileMenuOpen(true)
+  };
+
   const successRegistration = () => {
     setIsRegisterOpen(false);
     setSuccessRegistration(true);
@@ -159,6 +163,7 @@ function App() {
       <MobileMenu
         handleLoginClick={handleLoginClick}
         isLoggedIn={isLoggedIn}
+        handleLogOut={handleLogOut}
         isOpen={isMobileMenuOpen}
         onClose={closeAllPopups}
       />
@@ -169,7 +174,7 @@ function App() {
           element={
             <>
               <Main
-                openHamburger={() => setIsMobileMenuOpen(true)}
+                openHamburger={handleOpenHamburger}
                 handleLoginClick={handleLoginClick}
                 isLoggedIn={isLoggedIn}
                 handleLogOut={handleLogOut}
@@ -203,6 +208,7 @@ function App() {
                 darkStyle={darkStyle}
                 isLoggedIn={isLoggedIn}
                 handleLogOut={handleLogOut}
+                openHamburger={handleOpenHamburger}
               />
               <SavedNewsHeader searchKeywords={searchKeywords} />
               <SavedNews

@@ -55,6 +55,11 @@ export function NewCard({
       <a href={card.url}>
         <img src={card.urlToImage || photo} alt="card" className="new-card__image" />
       </a>
+          {buttonType === "delete" ? (
+            <span className={`label__keyword`}>{card.keyword}</span>
+          ) : (
+            ""
+          )}
       <div className="label">
         <div className="label__container">
           <span className={`label__tip${isVisible}`}>{tipTitle}</span>
@@ -67,11 +72,6 @@ export function NewCard({
             onClick={handleSaveCard}
           ></button>
         </div>
-        {buttonType === "delete" ? (
-          <span className={`label__keyword`}>{card.keyword}</span>
-        ) : (
-          ""
-        )}
       </div>
       <p className="new-card__date">{publeshedDate}</p>
       <h3 className="new-card__header">{card.title}</h3>

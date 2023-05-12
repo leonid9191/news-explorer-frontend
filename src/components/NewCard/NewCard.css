@@ -1,6 +1,6 @@
 .new-card {
   height: 576px;
-  width: 400px;
+  max-width: 400px;
   cursor: pointer;
   background-color: #ffffff;
   overflow: hidden;
@@ -22,46 +22,44 @@
   height: 272px;
 }
 .new-card__header {
-  margin: 0;
   padding: 12px 24px 0 24px;
+  margin: 0;
+  height: 48px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
   font-family: "Roboto Slab";
   font-weight: 400;
   font-size: 26px;
-  line-height: 30px;
-  color: #1a1b22;
-  height: 60px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 .new-card__description {
   margin: 0;
-  padding: 16px 24px 0 24px;
-  font-family: "Roboto";
-  font-weight: 400;
   font-size: 16px;
   line-height: 22px;
-  height: 60px;
-  color: #1a1b22;
-  overflow: hidden;
+  color: #1A1B22;
   text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  height: 110px;
+  padding: 16px 24px 0 24px;
 }
 .new-card__source {
   margin: 0;
-  padding: 18px 0px 0 24px;
+  padding: 30px 0px 0px 24px;
   font-family: "Roboto Slab";
   font-weight: 700;
   font-size: 16px;
-  line-height: 20px;
   letter-spacing: 0.4px;
   text-transform: uppercase;
   color: #b6bcbf;
-  position: absolute;
-  bottom: 24px;
 }
 .label {
   position: absolute;
-  right: 24px;
-  top: 24px;
+  right: 8px;
+  top: 8px;
 }
 .label__container {
   display: flex;
@@ -69,9 +67,9 @@
 }
 .label__keyword{
   position: absolute;
-  left: -125px;
-  top: 0px;
-  margin: 0 5px 0 0;
+  left: 8px;
+  top: 8px;
+  margin: 0;
   padding: 13px 35px;
   max-width: 182px;
   background-color: #ffff;
@@ -133,7 +131,7 @@
 @media screen and (max-width: 768px) {
   .new-card {
     height: 420px;
-    width: 224px;
+    max-width: 224px;
   }
   .new-card__date {
     padding-top: 16px;
@@ -157,7 +155,7 @@
 }
 @media screen and (max-width: 480px) {
   .new-card {
-    height: 440px;
+    max-height: 440px;
     width: 288px;
   }
   .new-card__date {
@@ -166,6 +164,7 @@
   }
   .new-card__header {
     padding: 10px 16px 0 16px;
+    height: 48px;
   }
   .new-card__description {
     padding: 14px 16px 0 16px;
@@ -175,6 +174,6 @@
     height: 196px;
   }
   .new-card__source {
-    padding: 8x 0px 16px 16px;
+    padding-left: 16px;
   }
 }

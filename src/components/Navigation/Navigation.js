@@ -64,7 +64,7 @@ export function Navigation({
           </li>
         )}
       </ul>
-      <div className="navigation__hamburger" onClick={openHamburger}></div>
+      <div className={`${route === '/saved-news' ? 'navigation__hamburger_black' : 'navigation__hamburger'}`} onClick={openHamburger}></div>
     </div>
   );
 }

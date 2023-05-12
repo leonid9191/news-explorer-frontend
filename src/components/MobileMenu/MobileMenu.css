@@ -1,9 +1,9 @@
 .mobile-menu{
   display: none;
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 650px) {
   .mobile-menu__overlay {
-    width: 480px;
+    width: 650px;
     background-color: rgba(0, 0, 0, 0.5);
   }
   .mobile-menu {
@@ -28,7 +28,6 @@
     background-color: #1a1b22;
     padding: 16px 0 16px;
     width: 100%;
-    max-width: 480px;
     height: fit-content;
     border-bottom: 1px solid hsla(0, 0%, 100%, 0.2);
   }

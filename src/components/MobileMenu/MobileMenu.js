@@ -5,7 +5,7 @@ export function MobileMenu({
   isOpen,
   onClose,
   isLoggedIn,
-  onLogout,
+  handleLogOut,
 }) {
   return (
     <div className={`mobile-menu ${isOpen && "mobile-menu_open"}`}>
@@ -33,7 +33,7 @@ export function MobileMenu({
                 </NavLink>
                 <button
                   className="mobile-menu__button navigation__button"
-                  onClick={onLogout}
+                  onClick={handleLogOut}
                 >Sign out</button>
               </>
             ) : (

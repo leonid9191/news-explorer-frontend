@@ -111,7 +111,7 @@
   .popup__window{
     padding: 16px 16px 0px 16px;
     margin-top: 200px;
-    width: 100%;
+    width: 90%;
     max-height: 960px;
     height: 100%;
     border-bottom-left-radius: 0;
@@ -122,5 +122,8 @@
     top: -32px;
     width: 24px;
     height: 24px;
+  }
+  .form__button{
+    max-width: 90%;
   }
 }

@@ -39,6 +39,8 @@
     margin-top: 38px;
   }
   .footer__navigation{
+    margin-top: 20px;
+    align-items:normal;
     width: 288px;
   }
   .footer__navigation-list{

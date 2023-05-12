@@ -39,7 +39,7 @@
   padding: 21px 208px 21px 24px;
   color: #1a1b22;
 }
-.search-form__form_button {
+.search-form__button {
   cursor: pointer;
   background: #2f71e5;
   box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
@@ -52,10 +52,10 @@
   right: 0px;
   transition: 0.3s ease;
 }
-.search-form__form_button:hover {
+.search-form__button:hover {
   background: #347eff;
 }
-.search-form__form_button:active {
+.search-form__button:active {
   background: #2a65cc;
 }
 
@@ -80,7 +80,7 @@
     height: 56px;
     padding: 17px 196px 17px 24px;
   }
-  .search-form__form_button {
+  .search-form__button {
     width: 160px;
     height: 56px;
   }
@@ -102,7 +102,7 @@
   .search-form__form_input {
     padding: 16px 32px;
   }
-  .search-form__form_button {
+  .search-form__button {
     width: 288px;
     margin-top: 72px;
   }
