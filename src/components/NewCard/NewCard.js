@@ -37,10 +37,10 @@ export function NewCard({
   const saveButtonClesses = `label__button label__button${isSaved}`;
   const trashButtonClesses = `label__button label__button_trash`;
   const hiddenHoverClass = () => {
-    if (isLoggedIn && buttonType === "delete") {
-      setIsVisible("");
-    } else {
+    if (!isLoggedIn && buttonType === "save") {
       setIsVisible("_visible");
+    } else {
+      setIsVisible("");
     }
     if (buttonType === "delete") {
       setIsVisible("_visible");
@@ -49,9 +49,8 @@ export function NewCard({
     }
   };
 
-  // const keyword = card.keyword.charAt(0).toUpperCase() + card.keyword.slice(1);
   return (
-    <div className="new-card">
+    <article   className="new-card">
       <a href={card.url}>
         <img src={card.urlToImage || photo} alt="card" className="new-card__image" />
       </a>
@@ -77,6 +76,6 @@ export function NewCard({
       <h3 className="new-card__header">{card.title}</h3>
       <p className="new-card__description">{card.description}</p>
       <p className="new-card__source">{card.source.name}</p>
-    </div>
+    </article>
   );
 }

@@ -14,6 +14,7 @@ import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
 import { SuccessRegistration } from "../SuccessRegistration/SuccessRegistration";
 import { NewsApi } from "../../utils/NewsExplorerApi";
 import { Preloader } from "../Preloader/Preloader";
+import { SearchForm } from "../SearchForm/SearchForm";
 import NothingFound from "../NothingFound/NothingFound";
 function App() {
   const userHistory = useNavigate();
@@ -36,11 +37,6 @@ function App() {
 
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
-
-  // useEffect(() => {
-  //   console.log(savedCards)
-  //   localStorage.setItem("save", savedCards)
-  // },[savedCards])
 
   const handleNewsResults = () => {
     setIsNewsResults("");
@@ -69,7 +65,7 @@ function App() {
     userHistory("/");
   };
   const handleOpenHamburger = () => {
-    setIsMobileMenuOpen(true)
+    setIsMobileMenuOpen(true);
   };
 
   const successRegistration = () => {
@@ -179,7 +175,15 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 handleLogOut={handleLogOut}
                 handleNewsSearch={handleNewsSearch}
-              />
+              >
+                <Header
+                  handleLoginClick={handleLoginClick}
+                  openHamburger={handleOpenHamburger}
+                  isLoggedIn={isLoggedIn}
+                  handleLogOut={handleLogOut}
+                />
+                <SearchForm handleNewsSearch={handleNewsSearch} />
+              </Main>
               <NewCardList
                 NewsResults={isNewsResults}
                 keyword={keyword}

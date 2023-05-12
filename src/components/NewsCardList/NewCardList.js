@@ -19,10 +19,10 @@ export function NewCardList({
     setInitCards(initCards + 3);
   };
   return (
-    <section className={`new-card-list${NewsResults}`}>
-      {route === '/saved-news' ? '' : <p className="new-card-list__title">Search results</p>}
+    <section className={`new-card-list`}>
+      {route === '/saved-news' ? '' : <h2 className="new-card-list__title">Search results</h2>}
 
-      <div className="new-card-list__items">
+      <ul className="new-card-list__items">
         {threeCards.map((card, index) => (
           <NewCard
             key={index}
@@ -36,7 +36,7 @@ export function NewCardList({
             keyword={keyword}
           />
         ))}
-      </div>
+      </ul>
       {cards.length > 3 ? (
         <button className="new-card-list__button" onClick={handleShowMore}>
           Show more

@@ -5,6 +5,7 @@
   max-width: 1440px;
   margin: 0 auto;
   display: flex;
+  align-items: center;
   flex-direction: column;
 }
 .new-card-list_hidden {
@@ -23,17 +24,9 @@
 .new-card-list__items {
   margin-top: 64px;
   display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, 400px);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 16px;
   row-gap: 16px;
-  /* margin-top: 64px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto;
-  grid-column-gap: 16px;
-  grid-row-gap: 16px;
-  flex-wrap: wrap; */
 }
 .new-card-list__button {
   margin: 0 auto;
@@ -69,7 +62,6 @@
   }
   .new-card-list__items {
     margin-top: 32px;
-    grid-template-columns: repeat(auto-fit, 224px);
     column-gap: 8px;
     row-gap: 8px;
   }
