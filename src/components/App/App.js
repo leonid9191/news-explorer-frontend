@@ -169,13 +169,7 @@ function App() {
           path="/"
           element={
             <>
-              <Main
-                openHamburger={handleOpenHamburger}
-                handleLoginClick={handleLoginClick}
-                isLoggedIn={isLoggedIn}
-                handleLogOut={handleLogOut}
-                handleNewsSearch={handleNewsSearch}
-              >
+              <Main>
                 <Header
                   handleLoginClick={handleLoginClick}
                   openHamburger={handleOpenHamburger}

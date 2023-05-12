@@ -9,7 +9,7 @@
 .search-form__header {
   margin: 0;
   max-width: 608px;
-  font-family: "Roboto Slab";
+  font-family: "Roboto Slab", sans-serif;
   font-weight: 400;
   font-size: 60px;
   line-height: 64px;

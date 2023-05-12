@@ -19,7 +19,7 @@ export function NewCardList({
     setInitCards(initCards + 3);
   };
   return (
-    <section className={`new-card-list`}>
+    <section className={`new-card-list${NewsResults}`}>
       {route === '/saved-news' ? '' : <h2 className="new-card-list__title">Search results</h2>}
 
       <ul className="new-card-list__items">

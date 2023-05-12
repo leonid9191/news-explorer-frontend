@@ -58,7 +58,7 @@
   outline: none;
 
   border-bottom: 1px solid rgba(0,0,0,.2);;
-  font-family: "Inter";
+  font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
@@ -67,7 +67,7 @@
 .form__label {
   padding: 0;
   margin-top: 18px;
-  font-family: "Inter";
+  font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
@@ -88,7 +88,7 @@
   box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
   border-radius: 100px;
   margin-top: 39px;
-  font-family: Roboto, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 18px;
   font-weight: 500;
   padding: 0;
@@ -97,7 +97,7 @@
 
 .form__redirect {
   margin-top: 16px;
-  font-family: "Inter";
+  font-family: "Inter", sans-serif;
   font-size: 14px;
   line-height: 17px;
 }
