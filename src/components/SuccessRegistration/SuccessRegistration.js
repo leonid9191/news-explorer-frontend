@@ -1,10 +1,10 @@
 import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
 
-export function SuccessRegistration(
-  {isOpen = { isOpen },
-  onClose = { onClose },
-  openModal = {openModal}}
-) {
+export function SuccessRegistration({
+  isOpen,
+  onClose,
+  openModal,
+}) {
   return (
     <PopupWithForm
       title={"Registration successfully completed!"}
@@ -12,7 +12,7 @@ export function SuccessRegistration(
       onClose={onClose}
     >
       <>
-        <button className="form__redirect_link" onClick={openModal}>
+        <button className="form__redirect-link" onClick={openModal}>
           Sign in
         </button>
       </>
