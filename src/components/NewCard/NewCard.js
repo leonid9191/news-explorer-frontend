@@ -18,7 +18,6 @@ export function NewCard({
       loginModal();
     } else {
       if (buttonType === "save") {
-        console.log(keyword);
         saveCard(card);
         isSaved ? setIsSaved("") : setIsSaved("_saved");
       }
@@ -39,14 +38,10 @@ export function NewCard({
   const hiddenHoverClass = () => {
     if (!isLoggedIn && buttonType === "save") {
       setIsVisible("_visible");
-    } else {
-      setIsVisible("");
     }
-    if (buttonType === "delete") {
+    if (isLoggedIn && buttonType === "delete") {
       setIsVisible("_visible");
-    } else {
-      setIsVisible("");
-    }
+    } 
   };
 
   return (
