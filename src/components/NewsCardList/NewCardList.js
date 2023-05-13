@@ -10,7 +10,7 @@ export function NewCardList({
   tipTitle,
   buttonType,
   deleteCard,
-  keyword
+  keyword,
 }) {
   const route = window.location.pathname;
   const [initCards, setInitCards] = useState(3);
@@ -20,23 +20,29 @@ export function NewCardList({
   };
   return (
     <section className={`new-card-list${NewsResults}`}>
-      {route === '/saved-news' ? '' : <h2 className="new-card-list__title">Search results</h2>}
+      {route === "/saved-news" ? (
+        ""
+      ) : (
+        <h2 className="new-card-list__title">Search results</h2>
+      )}
 
-      <ul className="new-card-list__items">
+      <div className="new-card-list__items">
         {threeCards.map((card, index) => (
-          <NewCard
-            key={index}
-            card={card}
-            isLoggedIn={isLoggedIn}
-            loginModal={loginModal}
-            saveCard={saveCard}
-            tipTitle={tipTitle}
-            buttonType={buttonType}
-            deleteCard={deleteCard}
-            keyword={keyword}
-          />
+          // <li className="new-card-list__item">
+            <NewCard
+              key={index}
+              card={card}
+              isLoggedIn={isLoggedIn}
+              loginModal={loginModal}
+              saveCard={saveCard}
+              tipTitle={tipTitle}
+              buttonType={buttonType}
+              deleteCard={deleteCard}
+              keyword={keyword}
+            />
+          // </li>
         ))}
-      </ul>
+      </div>
       {cards.length > 3 ? (
         <button className="new-card-list__button" onClick={handleShowMore}>
           Show more

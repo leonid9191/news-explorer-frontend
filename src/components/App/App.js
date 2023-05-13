@@ -14,7 +14,6 @@ import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
 import { SuccessRegistration } from "../SuccessRegistration/SuccessRegistration";
 import { NewsApi } from "../../utils/NewsExplorerApi";
 import { Preloader } from "../Preloader/Preloader";
-import { SearchForm } from "../SearchForm/SearchForm";
 import NothingFound from "../NothingFound/NothingFound";
 function App() {
   const userHistory = useNavigate();
@@ -169,30 +168,30 @@ function App() {
           path="/"
           element={
             <>
-              <Main>
-                <Header
-                  handleLoginClick={handleLoginClick}
-                  openHamburger={handleOpenHamburger}
-                  isLoggedIn={isLoggedIn}
-                  handleLogOut={handleLogOut}
-                />
-                <SearchForm handleNewsSearch={handleNewsSearch} />
-              </Main>
-              <NewCardList
-                NewsResults={isNewsResults}
-                keyword={keyword}
-                cards={cards}
+              <Header
+                handleLoginClick={handleLoginClick}
+                openHamburger={handleOpenHamburger}
                 isLoggedIn={isLoggedIn}
-                loginModal={() => {
-                  setIsLoginOpen(true);
-                }}
-                saveCard={handleSaveCard}
-                tipTitle={"Sign in to save articles"}
-                buttonType="save"
+                handleLogOut={handleLogOut}
+                handleNewsSearch={handleNewsSearch}
               />
-              <NothingFound isNothingFound={isNothingFound} />
-              <Preloader isLoading={isLoading} />
-              <AboutMe />
+              <Main>
+                <NewCardList
+                  NewsResults={isNewsResults}
+                  keyword={keyword}
+                  cards={cards}
+                  isLoggedIn={isLoggedIn}
+                  loginModal={() => {
+                    setIsLoginOpen(true);
+                  }}
+                  saveCard={handleSaveCard}
+                  tipTitle={"Sign in to save articles"}
+                  buttonType="save"
+                />
+                <NothingFound isNothingFound={isNothingFound} />
+                <Preloader isLoading={isLoading} />
+                <AboutMe />
+              </Main>
               <Footer />
             </>
           }
@@ -208,12 +207,15 @@ function App() {
                 handleLogOut={handleLogOut}
                 openHamburger={handleOpenHamburger}
               />
-              <SavedNewsHeader searchKeywords={searchKeywords} />
-              <SavedNews
-                cards={savedCards}
-                isLoggedIn={isLoggedIn}
-                deleteCard={handleDeleteCard}
-              />
+              <Main>
+                <SavedNewsHeader searchKeywords={searchKeywords} />
+                <SavedNews
+                  NewsResults={isNewsResults}
+                  cards={savedCards}
+                  isLoggedIn={isLoggedIn}
+                  deleteCard={handleDeleteCard}
+                />
+              </Main>
               <Footer />
             </>
           }

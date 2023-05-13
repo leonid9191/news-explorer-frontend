@@ -27,7 +27,7 @@
   display: inline-block;
   position: relative;
 }
-.search-form__form_input {
+.search-form__input {
   font-size: 16px;
   line-height: 22px;
   box-sizing: border-box;
@@ -76,7 +76,7 @@
     margin-top: 48px;
     min-width: 452px;
   }
-  .search-form__form_input {
+  .search-form__input {
     height: 56px;
     padding: 17px 196px 17px 24px;
   }
@@ -99,7 +99,7 @@
     margin-top: 122px;
     min-width: 288px;
   }
-  .search-form__form_input {
+  .search-form__input {
     padding: 16px 32px;
   }
   .search-form__button {

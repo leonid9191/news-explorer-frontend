@@ -19,7 +19,7 @@ export function SearchForm({ handleNewsSearch }) {
           name="searchNews"
           id="searchNews"
           placeholder="Enter topic"
-          className="search-form__form_input"
+          className="search-form__input"
         />
         <button type="submit" className="search-form__button">
           Search

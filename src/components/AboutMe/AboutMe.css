@@ -3,6 +3,7 @@
 }
 .about-me__wrapper {
   margin-top: 131px;
+  margin-bottom: 80px;
 }
 .about-me__profile-photo {
   border-radius: 1000px;
@@ -60,6 +61,6 @@
     margin: 0 16px;
   }
   .about-me__description{
-    margin: 16px 16px 128px 16px;
+    margin: 16px 16px 0 16px;
   }
 }
