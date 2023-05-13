@@ -11,6 +11,6 @@
 @import "./components/PopupWithForm/PopupWithForm.css";
 @import "./components/SavedNewsHeader/SavedNewsHeader.css";
 @import "./components/MobileMenu/MobileMenu.css";
-@import "./components/Preloader/Preloader.css";
+@import "./components/Preloader/preloader.css";
 @import "./components/NothingFound/NothingFound.css";
 @import "./components/Footer/Footer.css";
