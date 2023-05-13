@@ -84,7 +84,6 @@
 .label__tip_visible {
   visibility: visible;
   margin: 0 5px 0 0;
-  /* margin: 13px 35px; */
   padding: 13px 15px; 
   max-width: 182px;
   background-color: #ffff;
@@ -95,7 +94,7 @@
   line-height: 14px;
 }
 .label__button {
-  padding: 0;
+  padding: 20px;
   background-image: url("../../images/label.svg");
   background-repeat: no-repeat;
   background-position: center;
@@ -150,7 +149,7 @@
     padding: 13px 10px;
   }
 }
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 480px) {
   .new-card {
     max-height: 440px;
     max-width: 288px;
