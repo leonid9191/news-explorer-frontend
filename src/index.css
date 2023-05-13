@@ -4,7 +4,6 @@
 @import "./components/Header/Header.css";
 @import "./components/Logo/Logo.css";
 @import "./components/Navigation/Navigation.css";
-@import "./components/Main/Main.css";
 @import "./components/SearchForm/SearchForm.css";
 @import "./components/AboutMe/AboutMe.css";
 @import "./components/NewCard/NewCard.css";
@@ -14,5 +13,4 @@
 @import "./components/MobileMenu/MobileMenu.css";
 @import "./components/Preloader/Preloader.css";
 @import "./components/NothingFound/NothingFound.css";
-
 @import "./components/Footer/Footer.css";
