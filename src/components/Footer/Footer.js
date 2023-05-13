@@ -13,18 +13,18 @@ export function Footer() {
           <a  className="footer__link" href="/">
             <li>Home</li>
           </a>
-          <a  className="footer__link" href="https://practicum.com/en-isr/">
+          <a  className="footer__link" target="_blank" href="https://practicum.com/en-isr/">
             <li>Practicum</li>
           </a>
         </ul>
         <ul className="footer__navigation-list">
           <li>
-            <a  className="footer__link" href="https://github.com/leonid9191/">
+            <a  className="footer__link" target="_blank" href="https://github.com/leonid9191/">
               <img src={github} alt="github" />
             </a>
           </li>
           <li>
-            <a  className="footer__link" href="https://www.facebook.com/leonid.chernobilskiy/">
+            <a  className="footer__link" target="_blank" href="https://www.facebook.com/leonid.chernobilskiy/">
               <img src={facebook} alt="facebook" />
             </a>
           </li>

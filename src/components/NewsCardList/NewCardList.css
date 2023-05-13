@@ -73,7 +73,7 @@
     padding: 16px 74px;
   }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 580px) {
   .new-card-list {
     padding: 32px 16px 24px;
   }

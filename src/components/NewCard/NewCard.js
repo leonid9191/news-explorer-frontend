@@ -46,7 +46,7 @@ export function NewCard({
 
   return (
     <article   className="new-card">
-      <a href={card.url}>
+      <a href={card.url} target="_blank">
         <img src={card.urlToImage || photo} alt="card" className="new-card__image" />
       </a>
           {buttonType === "delete" ? (

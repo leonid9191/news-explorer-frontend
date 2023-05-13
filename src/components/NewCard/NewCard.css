@@ -63,7 +63,6 @@
 }
 .label__container {
   display: flex;
-  align-items: center;
 }
 .label__keyword{
   position: absolute;
@@ -81,20 +80,12 @@
 }
 .label__tip {
   visibility: hidden;
-  margin: 0 5px 0 0;
-  padding: 13px 35px;
-  max-width: 182px;
-  background-color: #ffff;
-  border-radius: 10px;
-  overflow: hidden;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14px;
 }
 .label__tip_visible {
   visibility: visible;
   margin: 0 5px 0 0;
-  padding: 13px 35px;
+  /* margin: 13px 35px; */
+  padding: 13px 15px; 
   max-width: 182px;
   background-color: #ffff;
   border-radius: 10px;
@@ -109,9 +100,9 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size:cover;
-  border-radius: 8px;
   width: 40px;
   height: 40px;
+  border-radius: 8px;
   background-color: initial;
   border: none;
   transition: 0.3s;
@@ -150,12 +141,16 @@
   }
   .new-card__image {
     height: 150px;
+    max-width: 224px;
   }
   .new-card__source {
     padding: 12px 0px 16px 16px;
   }
+  .label__tip_visible{
+    padding: 13px 10px;
+  }
 }
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 580px) {
   .new-card {
     max-height: 440px;
     max-width: 288px;
