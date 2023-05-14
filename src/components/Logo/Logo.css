@@ -1,11 +1,30 @@
 .logo {
+  padding-left: 104px;
+  display: flex;
+  align-items:center;
+  text-decoration: none;
+}
+.logo__header{
+  font-family: "Roboto Slab", sans-serif;
   font-weight: 700;
   font-size: 20px;
   line-height: 24px;
-  text-decoration: none;
   color: #ffffff;
-  padding-left: 104px;
-  display: flex;
-  align-items:center
-
+}
+.logo__header_dark{
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color:#1A1B22;
+}
+@media screen and (max-width: 768px) {
+  .logo {
+    padding-left: 40px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .logo {
+    padding-left: 16px;
+  }
 }

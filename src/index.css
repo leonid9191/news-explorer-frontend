@@ -4,7 +4,13 @@
 @import "./components/Header/Header.css";
 @import "./components/Logo/Logo.css";
 @import "./components/Navigation/Navigation.css";
-@import "./components/Main/Main.css";
 @import "./components/SearchForm/SearchForm.css";
 @import "./components/AboutMe/AboutMe.css";
+@import "./components/NewCard/NewCard.css";
+@import "./components/NewsCardList/NewCardList.css";
+@import "./components/PopupWithForm/PopupWithForm.css";
+@import "./components/SavedNewsHeader/SavedNewsHeader.css";
+@import "./components/MobileMenu/MobileMenu.css";
+@import "./components/Preloader/preloader.css";
+@import "./components/NothingFound/NothingFound.css";
 @import "./components/Footer/Footer.css";

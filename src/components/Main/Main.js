@@ -1,11 +1,7 @@
-import { SearchForm } from "../SearchForm/SearchForm";
-import { Header } from "../Header/Header";
-
-export function Main() {
+export function Main({children}) {
   return (
-    <section className="main">
-      <Header />
-      <SearchForm />
-    </section>
+    <main className="main">
+      {children}
+    </main>
   );
 }

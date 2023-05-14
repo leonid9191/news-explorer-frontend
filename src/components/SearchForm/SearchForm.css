@@ -1,3 +1,109 @@
-.search-form{
+.search-form {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+}
 
+.search-form__header {
+  margin: 0;
+  max-width: 608px;
+  font-family: "Roboto Slab", sans-serif;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 64px;
+}
+
+.search-form__description {
+  margin: 0;
+  max-width: 608px;
+  margin-top: 32px;
+}
+
+.search-form__form {
+  margin-top: 88px;
+  min-width: 608px;
+  display: inline-block;
+  position: relative;
+}
+.search-form__input {
+  font-size: 16px;
+  line-height: 22px;
+  box-sizing: border-box;
+  border: 1px solid #d1d2d6;
+  backdrop-filter: blur(4px);
+  border-radius: 100px;
+  height: 64px;
+  width: 100%;
+  padding: 21px 208px 21px 24px;
+  color: #1a1b22;
+}
+.search-form__button {
+  cursor: pointer;
+  background: #2f71e5;
+  box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
+  border-radius: 100px;
+  border: none;
+  color: #ffffff;
+  width: 168px;
+  height: 64px;
+  position: absolute;
+  right: 0px;
+  transition: 0.3s ease;
+}
+.search-form__button:hover {
+  background: #347eff;
+}
+.search-form__button:active {
+  background: #2a65cc;
+}
+
+@media screen and (max-width: 768px) {
+  .search-form {
+    margin-top: 38px;
+  }
+  .search-form__header {
+    max-width: 452px;
+    font-size: 36px;
+    line-height: 40px;
+  }
+  .search-form__description {
+    max-width: 452px;
+    margin-top: 16px;
+  }
+  .search-form__form {
+    margin-top: 48px;
+    min-width: 452px;
+  }
+  .search-form__input {
+    height: 56px;
+    padding: 17px 196px 17px 24px;
+  }
+  .search-form__button {
+    width: 160px;
+    height: 56px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .search-form {
+    margin-top: 30px;
+  }
+  .search-form__header {
+    max-width: 288px;
+  }
+  .search-form__description {
+    max-width: 288px;
+  }
+  .search-form__form {
+    margin-top: 122px;
+    min-width: 288px;
+  }
+  .search-form__input {
+    padding: 16px 32px;
+  }
+  .search-form__button {
+    width: 288px;
+    margin-top: 72px;
+  }
 }
