@@ -14,6 +14,7 @@ import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
 import { SuccessRegistration } from "../SuccessRegistration/SuccessRegistration";
 import { NewsApi } from "../../utils/NewsExplorerApi";
 import { Preloader } from "../Preloader/Preloader";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import NothingFound from "../NothingFound/NothingFound";
 function App() {
   const userHistory = useNavigate();
@@ -34,6 +35,7 @@ function App() {
   const [keyword, setKeyword] = useState("");
   const [searchKeywords, setSearchKeywords] = useState([]);
 
+  const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
 
@@ -154,103 +156,105 @@ function App() {
     };
   }, []);
   return (
-    <div className="app">
-      <MobileMenu
-        handleLoginClick={handleLoginClick}
-        isLoggedIn={isLoggedIn}
-        handleLogOut={handleLogOut}
-        isOpen={isMobileMenuOpen}
-        onClose={closeAllPopups}
-      />
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={
-            <>
-              <Header
-                handleLoginClick={handleLoginClick}
-                openHamburger={handleOpenHamburger}
-                isLoggedIn={isLoggedIn}
-                handleLogOut={handleLogOut}
-                handleNewsSearch={handleNewsSearch}
-              />
-              <Main>
-                <NewCardList
-                  NewsResults={isNewsResults}
-                  keyword={keyword}
-                  cards={cards}
-                  isLoggedIn={isLoggedIn}
-                  loginModal={() => {
-                    setIsLoginOpen(true);
-                  }}
-                  saveCard={handleSaveCard}
-                  tipTitle={"Sign in to save articles"}
-                  buttonType="save"
-                />
-                <NothingFound isNothingFound={isNothingFound} />
-                <Preloader isLoading={isLoading} />
-                <AboutMe />
-              </Main>
-              <Footer />
-            </>
-          }
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="app">
+        <MobileMenu
+          handleLoginClick={handleLoginClick}
+          isLoggedIn={isLoggedIn}
+          handleLogOut={handleLogOut}
+          isOpen={isMobileMenuOpen}
+          onClose={closeAllPopups}
         />
-        <Route
-          exact
-          path="/saved-news"
-          element={
-            <>
-              <Header
-                darkStyle={darkStyle}
-                isLoggedIn={isLoggedIn}
-                handleLogOut={handleLogOut}
-                openHamburger={handleOpenHamburger}
-              />
-              <Main>
-                <SavedNewsHeader searchKeywords={searchKeywords} />
-                <SavedNews
-                  NewsResults={isNewsResults}
-                  cards={savedCards}
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              <>
+                <Header
+                  handleLoginClick={handleLoginClick}
+                  openHamburger={handleOpenHamburger}
                   isLoggedIn={isLoggedIn}
-                  deleteCard={handleDeleteCard}
+                  handleLogOut={handleLogOut}
+                  handleNewsSearch={handleNewsSearch}
                 />
-              </Main>
-              <Footer />
-            </>
-          }
+                <Main>
+                  <NewCardList
+                    NewsResults={isNewsResults}
+                    keyword={keyword}
+                    cards={cards}
+                    isLoggedIn={isLoggedIn}
+                    loginModal={() => {
+                      setIsLoginOpen(true);
+                    }}
+                    saveCard={handleSaveCard}
+                    tipTitle={"Sign in to save articles"}
+                    buttonType="save"
+                  />
+                  <NothingFound isNothingFound={isNothingFound} />
+                  <Preloader isLoading={isLoading} />
+                  <AboutMe />
+                </Main>
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            exact
+            path="/saved-news"
+            element={
+              <>
+                <Header
+                  darkStyle={darkStyle}
+                  isLoggedIn={isLoggedIn}
+                  handleLogOut={handleLogOut}
+                  openHamburger={handleOpenHamburger}
+                />
+                <Main>
+                  <SavedNewsHeader searchKeywords={searchKeywords} />
+                  <SavedNews
+                    NewsResults={isNewsResults}
+                    cards={savedCards}
+                    isLoggedIn={isLoggedIn}
+                    deleteCard={handleDeleteCard}
+                  />
+                </Main>
+                <Footer />
+              </>
+            }
+          />
+        </Routes>
+        <LogIn
+          onLoggedIn={handleLoggedIn}
+          openModal={(e) => {
+            e.preventDefault();
+            setIsLoginOpen(false);
+            setIsRegisterOpen(true);
+          }}
+          isOpen={isLoginOpen}
+          onClose={closeAllPopups}
         />
-      </Routes>
-      <LogIn
-        onLoggedIn={handleLoggedIn}
-        openModal={(e) => {
-          e.preventDefault();
-          setIsLoginOpen(false);
-          setIsRegisterOpen(true);
-        }}
-        isOpen={isLoginOpen}
-        onClose={closeAllPopups}
-      />
-      <RegistrationForm
-        openModal={(e) => {
-          e.preventDefault();
-          setIsRegisterOpen(false);
-          setIsLoginOpen(true);
-        }}
-        isOpen={isRegisterOpen}
-        onClose={closeAllPopups}
-        successRegistration={successRegistration}
-      />
-      <SuccessRegistration
-        isOpen={isSuccessRegistration}
-        onClose={closeAllPopups}
-        openModal={(e) => {
-          e.preventDefault();
-          setSuccessRegistration(false);
-          setIsLoginOpen(true);
-        }}
-      />
-    </div>
+        <RegistrationForm
+          openModal={(e) => {
+            e.preventDefault();
+            setIsRegisterOpen(false);
+            setIsLoginOpen(true);
+          }}
+          isOpen={isRegisterOpen}
+          onClose={closeAllPopups}
+          successRegistration={successRegistration}
+        />
+        <SuccessRegistration
+          isOpen={isSuccessRegistration}
+          onClose={closeAllPopups}
+          openModal={(e) => {
+            e.preventDefault();
+            setSuccessRegistration(false);
+            setIsLoginOpen(true);
+          }}
+        />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
