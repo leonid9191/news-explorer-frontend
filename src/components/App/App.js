@@ -16,6 +16,8 @@ import { NewsApi } from "../../utils/NewsExplorerApi";
 import { Preloader } from "../Preloader/Preloader";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import NothingFound from "../NothingFound/NothingFound";
+import * as auth from "../../utils/auth.js";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 function App() {
   const userHistory = useNavigate();
   //Styles
@@ -31,6 +33,7 @@ function App() {
   const [isSuccessRegistration, setSuccessRegistration] = useState(false);
 
   //Status
+  const [jwt, setJwt] = useState(localStorage.getItem('jwt'));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [searchKeywords, setSearchKeywords] = useState([]);
@@ -49,16 +52,11 @@ function App() {
     setIsLoading("_hidden");
     setIsNothingFound("");
   };
-  const handleLoginClick = (e) => {
+  const handleLoginOpen = (e) => {
     e.preventDefault();
     setIsLoginOpen(true);
   };
-  const handleLoggedIn = (e) => {
-    e.preventDefault();
-    localStorage.setItem("jwt", true);
-    setIsLoggedIn(true);
-    closeAllPopups();
-  };
+
   const handleLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
@@ -123,14 +121,6 @@ function App() {
       });
   };
 
-  //check if user logged in before and save email
-  useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
   //close popups by ESC
   useEffect(() => {
     const closeByEscape = (e) => {
@@ -155,13 +145,70 @@ function App() {
       document.removeEventListener("mousedown", clickClose);
     };
   }, []);
+
+  //check if user logged in before and save email
+  useEffect(() => {
+    if (jwt) {
+      auth
+        .checkingTokenValidity(jwt)
+        .then((user) => {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+          userHistory("/");
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [jwt]);
+
+  //Registration
+  const handleRegistration = (email, password, username) => {
+    if (password) {
+      auth
+        .register(email, password, username)
+        .then((res) => {
+          if (res) {
+            setIsRegisterOpen(false);
+            setSuccessRegistration(true);
+          } else {
+            console.log("Something went wrong.");
+          }
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
+  };
+
+  //logIn by email and password
+  const handleLogin = (email, password) => {
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .logIn(email, password)
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        setIsLoggedIn(true);
+        setIsLoginOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  //log Out
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    setJwt('')
+    setIsLoggedIn(false);
+    setCurrentUser({});
+  }
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
         <MobileMenu
-          handleLoginClick={handleLoginClick}
+          handleLoginClick={handleLoginOpen}
           isLoggedIn={isLoggedIn}
-          handleLogOut={handleLogOut}
+          handleLogOut={handleLogout}
           isOpen={isMobileMenuOpen}
           onClose={closeAllPopups}
         />
@@ -172,10 +219,10 @@ function App() {
             element={
               <>
                 <Header
-                  handleLoginClick={handleLoginClick}
+                  handleLoginClick={handleLoginOpen}
                   openHamburger={handleOpenHamburger}
                   isLoggedIn={isLoggedIn}
-                  handleLogOut={handleLogOut}
+                  handleLogOut={handleLogout}
                   handleNewsSearch={handleNewsSearch}
                 />
                 <Main>
@@ -210,22 +257,24 @@ function App() {
                   handleLogOut={handleLogOut}
                   openHamburger={handleOpenHamburger}
                 />
-                <Main>
-                  <SavedNewsHeader searchKeywords={searchKeywords} />
-                  <SavedNews
-                    NewsResults={isNewsResults}
-                    cards={savedCards}
-                    isLoggedIn={isLoggedIn}
-                    deleteCard={handleDeleteCard}
-                  />
-                </Main>
+                {/* <ProtectedRoute isLoggedIn={isLoggedIn}> */}
+                  <Main>
+                    <SavedNewsHeader searchKeywords={searchKeywords} />
+                    <SavedNews
+                      NewsResults={isNewsResults}
+                      cards={savedCards}
+                      isLoggedIn={isLoggedIn}
+                      deleteCard={handleDeleteCard}
+                    />
+                  </Main>
+                {/* </ProtectedRoute> */}
                 <Footer />
               </>
             }
           />
         </Routes>
         <LogIn
-          onLoggedIn={handleLoggedIn}
+          onLoggedIn={handleLogin}
           openModal={(e) => {
             e.preventDefault();
             setIsLoginOpen(false);
@@ -240,9 +289,10 @@ function App() {
             setIsRegisterOpen(false);
             setIsLoginOpen(true);
           }}
+          handleRegistration={handleRegistration}
           isOpen={isRegisterOpen}
           onClose={closeAllPopups}
-          successRegistration={successRegistration}
+          // successRegistration={successRegistration}
         />
         <SuccessRegistration
           isOpen={isSuccessRegistration}

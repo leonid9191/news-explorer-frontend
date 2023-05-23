@@ -1,9 +1,17 @@
 import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
+import { useState } from "react";
 
 export function LogIn({ onLoggedIn, openModal, isOpen, onClose }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onLoggedIn(email, password);
+  }
   return (
     <PopupWithForm title={"Sign in"} isOpen={isOpen} onClose={onClose}>
-      <form className="form" noValidate>
+      <form className="form" onSubmit={handleSubmit} >
         <fieldset className="form__register">
           <label className="form__label">Email</label>
           <input
@@ -12,6 +20,8 @@ export function LogIn({ onLoggedIn, openModal, isOpen, onClose }) {
             type="email"
             placeholder="Enter email"
             className="form__input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <label className="form__label">Password</label>
           <input
@@ -20,9 +30,11 @@ export function LogIn({ onLoggedIn, openModal, isOpen, onClose }) {
             type="password"
             placeholder="Enter password"
             className="form__input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </fieldset>
-        <button onClick={onLoggedIn} className="form__button">
+        <button type="submit" className="form__button">
           Sign in
         </button>
         <div className="form__redirect">
