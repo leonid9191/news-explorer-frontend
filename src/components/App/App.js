@@ -52,22 +52,6 @@ function App() {
       authorization: `Bearer ${jwt}`,
     },
   });
-  //check if user logged in
-  useEffect(() => {
-    if (jwt) {
-      auth
-        .checkingTokenValidity(jwt)
-        .then((user) => {
-          setCurrentUser(user);
-          setIsLoggedIn(true);
-          getSavedArticles();
-        })
-        .catch((err) => console.log(err));
-    } else {
-      setIsLoggedIn(false);
-      setCurrentUser({});
-    }
-  }, [jwt]);
 
   const handleNewsResults = () => {
     setIsNewsResults("");
@@ -243,6 +227,22 @@ function App() {
     setIsLoggedIn(false);
     setCurrentUser({});
   };
+  //check if user logged in
+  useEffect(() => {
+    if (jwt) {
+      auth
+        .checkingTokenValidity(jwt)
+        .then((user) => {
+          setCurrentUser(user);
+          getSavedArticles();
+          setIsLoggedIn(true);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setIsLoggedIn(false);
+      setCurrentUser({});
+    }
+  }, [jwt]);
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
@@ -297,8 +297,7 @@ function App() {
                   handleLogOut={handleLogOut}
                   openHamburger={handleOpenHamburger}
                 />
-                {/* <ProtectedRoute isLoggedIn={isLoggedIn}> */}
-                <Main>
+                <ProtectedRoute isLoggedIn={isLoggedIn} component={Main}>
                   <SavedNewsHeader searchKeywords={searchKeywords} />
                   <SavedNews
                     NewsResults={isNewsResults}
@@ -306,8 +305,7 @@ function App() {
                     isLoggedIn={isLoggedIn}
                     deleteCard={deleteArticleFromSavedNews}
                   />
-                </Main>
-                {/* </ProtectedRoute> */}
+                </ProtectedRoute>
                 <Footer />
               </>
             }

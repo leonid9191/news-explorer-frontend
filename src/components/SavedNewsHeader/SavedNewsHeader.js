@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 export function SavedNewsHeader({ searchKeywords }) {
   const currentUser = useContext(CurrentUserContext);
-  console.log("saved ", currentUser.data.name);
+  console.log("saved ", currentUser.data.name || '');
   let keywords;
 
   if (searchKeywords.length > 3) {
@@ -24,7 +24,7 @@ export function SavedNewsHeader({ searchKeywords }) {
       <div className="saved-news-header">
         <p className="saved-news-header__article">Saved articles</p>
         <p className="saved-news-header__count">
-          {`${currentUser.data.name}, you have 5 saved articles`}
+          {`${''}, you have 5 saved articles`}
         </p>
         <p className="saved-news-header__keywords">By keywords: {keywords}</p>
       </div>
