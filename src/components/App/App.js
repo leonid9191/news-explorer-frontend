@@ -47,6 +47,7 @@ function App() {
   const mainApi = new MainApi({
     baseUrl: BASE_URL,
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": BASE_URL,
       authorization: `Bearer ${jwt}`,
@@ -82,7 +83,6 @@ function App() {
     setIsRegisterOpen(false);
     setSuccessRegistration(true);
   };
-
   // Save Article
   const saveArticle = (article) => {
     mainApi
@@ -97,7 +97,7 @@ function App() {
         owner: currentUser._id,
       })
       .then((res) => {
-        setSavedCards([...savedCards, res]);
+        setSavedCards([res.data, ...savedCards]);
       })
       .catch((err) => console.log(err));
   };
@@ -119,7 +119,7 @@ function App() {
         if (cardData.status === "ok") {
           if (cardData.totalResults > 0) {
             setKeyword(userKeyword);
-            setSearchKeywords([keyword, ...searchKeywords]);
+
             setCards(newsArticles);
             handleNewsResults();
           } else {
@@ -177,8 +177,8 @@ function App() {
   const deleteArticleFromSavedNews = (articleId) => {
     if (jwt) {
       mainApi.removeArticle(articleId).then(() => {
-        const newSavedArticles = savedCards.filter((item) =>
-          item._id !== articleId ? item : null
+        const newSavedArticles = savedCards.filter(
+          (item) => item._id !== articleId
         );
         setSavedCards(newSavedArticles);
       });
@@ -212,6 +212,7 @@ function App() {
     auth
       .logIn(email, password)
       .then((res) => {
+        setCurrentUser(res.data);
         localStorage.setItem("jwt", res.token);
         setIsLoggedIn(true);
         setIsLoginOpen(false);
@@ -233,8 +234,8 @@ function App() {
       auth
         .checkingTokenValidity(jwt)
         .then((user) => {
-          setCurrentUser(user);
           getSavedArticles();
+          setCurrentUser(user.data);
           setIsLoggedIn(true);
         })
         .catch((err) => console.log(err));
@@ -243,6 +244,7 @@ function App() {
       setCurrentUser({});
     }
   }, [jwt]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
@@ -297,15 +299,20 @@ function App() {
                   handleLogOut={handleLogOut}
                   openHamburger={handleOpenHamburger}
                 />
+                {/* <Main> */}
                 <ProtectedRoute isLoggedIn={isLoggedIn} component={Main}>
-                  <SavedNewsHeader searchKeywords={searchKeywords} />
+                  <SavedNewsHeader
+                    searchKeywords={searchKeywords}
+                    savedCards={savedCards}
+                  />
                   <SavedNews
-                    NewsResults={isNewsResults}
+                    NewsResults={savedCards.length < 1 ? "_hidden" : ""}
                     cards={savedCards}
                     isLoggedIn={isLoggedIn}
                     deleteCard={deleteArticleFromSavedNews}
                   />
                 </ProtectedRoute>
+                {/* </Main> */}
                 <Footer />
               </>
             }

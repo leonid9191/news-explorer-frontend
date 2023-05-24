@@ -13,6 +13,10 @@ export function Navigation({
 }) {
   const currentUser = useContext(CurrentUserContext);
   const route = window.location.pathname;
+  if (currentUser === undefined){
+    console.log('log context');
+    return
+  }
   return (
     <div className="navigation">
       <ul className="navigation__container">
@@ -46,7 +50,7 @@ export function Navigation({
               onClick={handleLogOut}
               className={`navigation__button${darkStyle} navigation__sign-out`}
             >
-              {currentUser.data.name}
+              {currentUser.name}
               <img
                 className="navigation__button_icon"
                 src={darkStyle ? icon_black : icon_white}

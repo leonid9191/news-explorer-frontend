@@ -7,9 +7,7 @@ export function NewCard({
   tipTitle,
   buttonType,
   deleteCard,
-  keyword,
 }) {
-
   const [isVisible, setIsVisible] = useState("");
   const [isSaved, setIsSaved] = useState("");
   const handleSaveCard = () => {
@@ -66,7 +64,7 @@ export function NewCard({
       <p className="new-card__date">{publeshedDate}</p>
       <h3 className="new-card__header">{card.title}</h3>
       <p className="new-card__description">{card.description || card.text}</p>
-      <p className="new-card__source">{card.source.name || card.source}</p>
+      <p className="new-card__source">{card.source.name || card.source || ''}</p>
     </article>
   );
 }

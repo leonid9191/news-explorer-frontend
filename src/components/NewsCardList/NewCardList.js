@@ -10,7 +10,6 @@ export function NewCardList({
   tipTitle,
   buttonType,
   deleteCard,
-  keyword,
 }) {
   const route = window.location.pathname;
   const [initCards, setInitCards] = useState(3);

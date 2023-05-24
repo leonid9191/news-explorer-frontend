@@ -37,7 +37,7 @@ export async function logIn(email, password) {
     },
     body: JSON.stringify({
       password: password,
-      email: email,
+      email: email
     }),
   });
   return checkResponse(res);
