@@ -1,5 +1,4 @@
 import { useState } from "react";
-import photo from "../../images/error-404.jpg";
 export function NewCard({
   card,
   isLoggedIn,
@@ -22,13 +21,11 @@ export function NewCard({
         isSaved ? setIsSaved("") : setIsSaved("_saved");
       }
       if (buttonType === "delete") {
-        console.log("delete");
-        deleteCard(card);
+        deleteCard(card._id);
       }
     }
   };
-
-  const publeshedDate = new Date(card.publishedAt).toLocaleString("default", {
+  const publeshedDate = new Date(card.publishedAt || card.date).toLocaleString("default", {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -43,11 +40,10 @@ export function NewCard({
       setIsVisible("_visible");
     } 
   };
-
   return (
     <article   className="new-card">
-      <a href={card.url} target="_blank" rel="noreferrer">
-        <img src={card.urlToImage || photo} alt="card" className="new-card__image" />
+      <a href={card.url || card.link} target="_blank" rel="noreferrer">
+        <img src={card.urlToImage || card.urlToImage || card.image} alt="card" className="new-card__image" />
       </a>
           {buttonType === "delete" ? (
             <span className={`label__keyword`}>{card.keyword}</span>
@@ -69,8 +65,8 @@ export function NewCard({
       </div>
       <p className="new-card__date">{publeshedDate}</p>
       <h3 className="new-card__header">{card.title}</h3>
-      <p className="new-card__description">{card.description}</p>
-      <p className="new-card__source">{card.source.name}</p>
+      <p className="new-card__description">{card.description || card.text}</p>
+      <p className="new-card__source">{card.source.name || card.source}</p>
     </article>
   );
 }

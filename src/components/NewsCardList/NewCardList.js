@@ -38,7 +38,6 @@ export function NewCardList({
               tipTitle={tipTitle}
               buttonType={buttonType}
               deleteCard={deleteCard}
-              keyword={keyword}
             />
           // </li>
         ))}

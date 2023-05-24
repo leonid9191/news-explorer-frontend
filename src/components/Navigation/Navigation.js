@@ -11,7 +11,7 @@ export function Navigation({
   isLoggedIn,
   handleLogOut
 }) {
-  const currentUser = useContext(CurrentUserContext)
+  const currentUser = useContext(CurrentUserContext);
   const route = window.location.pathname;
   return (
     <div className="navigation">

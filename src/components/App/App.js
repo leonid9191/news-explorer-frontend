@@ -16,6 +16,7 @@ import { NewsApi } from "../../utils/NewsExplorerApi";
 import { Preloader } from "../Preloader/Preloader";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import NothingFound from "../NothingFound/NothingFound";
+import MainApi from "../../utils/MainApi";
 import * as auth from "../../utils/auth.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 function App() {
@@ -33,7 +34,7 @@ function App() {
   const [isSuccessRegistration, setSuccessRegistration] = useState(false);
 
   //Status
-  const [jwt, setJwt] = useState(localStorage.getItem('jwt'));
+  const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [searchKeywords, setSearchKeywords] = useState([]);
@@ -41,6 +42,32 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
+
+  const BASE_URL = "http://localhost:3000";
+  const mainApi = new MainApi({
+    baseUrl: BASE_URL,
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": BASE_URL,
+      authorization: `Bearer ${jwt}`,
+    },
+  });
+  //check if user logged in
+  useEffect(() => {
+    if (jwt) {
+      auth
+        .checkingTokenValidity(jwt)
+        .then((user) => {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+          getSavedArticles();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setIsLoggedIn(false);
+      setCurrentUser({});
+    }
+  }, [jwt]);
 
   const handleNewsResults = () => {
     setIsNewsResults("");
@@ -72,16 +99,23 @@ function App() {
     setSuccessRegistration(true);
   };
 
-  //save card
-  const handleSaveCard = (card) => {
-    setSavedCards([card, ...savedCards]);
-    localStorage.setItem("save", savedCards);
-  };
-  //delete card
-  const handleDeleteCard = (card) => {
-    const newCards = savedCards.filter((c) => c.title !== card.title);
-    localStorage.setItem("save", savedCards);
-    setSavedCards(newCards);
+  // Save Article
+  const saveArticle = (article) => {
+    mainApi
+      .saveArticle({
+        keyword: keyword,
+        title: article.title,
+        text: article.description,
+        date: article.publishedAt,
+        source: article.source.name,
+        link: article.url,
+        image: article.urlToImage,
+        owner: currentUser._id,
+      })
+      .then((res) => {
+        setSavedCards([...savedCards, res]);
+      })
+      .catch((err) => console.log(err));
   };
 
   const closeAllPopups = () => {
@@ -146,19 +180,26 @@ function App() {
     };
   }, []);
 
-  //check if user logged in before and save email
-  useEffect(() => {
+  const getSavedArticles = () => {
+    mainApi
+      .getSavedArticles()
+      .then((res) => {
+        setSavedCards(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // Delete from saved
+  const deleteArticleFromSavedNews = (articleId) => {
     if (jwt) {
-      auth
-        .checkingTokenValidity(jwt)
-        .then((user) => {
-          setCurrentUser(user);
-          setIsLoggedIn(true);
-          userHistory("/");
-        })
-        .catch((err) => console.log(err));
+      mainApi.removeArticle(articleId).then(() => {
+        const newSavedArticles = savedCards.filter((item) =>
+          item._id !== articleId ? item : null
+        );
+        setSavedCards(newSavedArticles);
+      });
     }
-  }, [jwt]);
+  };
 
   //Registration
   const handleRegistration = (email, password, username) => {
@@ -197,11 +238,11 @@ function App() {
   };
   //log Out
   const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    setJwt('')
+    localStorage.removeItem("jwt");
+    setJwt("");
     setIsLoggedIn(false);
     setCurrentUser({});
-  }
+  };
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
@@ -228,13 +269,12 @@ function App() {
                 <Main>
                   <NewCardList
                     NewsResults={isNewsResults}
-                    keyword={keyword}
                     cards={cards}
                     isLoggedIn={isLoggedIn}
                     loginModal={() => {
                       setIsLoginOpen(true);
                     }}
-                    saveCard={handleSaveCard}
+                    saveCard={saveArticle}
                     tipTitle={"Sign in to save articles"}
                     buttonType="save"
                   />
@@ -258,15 +298,15 @@ function App() {
                   openHamburger={handleOpenHamburger}
                 />
                 {/* <ProtectedRoute isLoggedIn={isLoggedIn}> */}
-                  <Main>
-                    <SavedNewsHeader searchKeywords={searchKeywords} />
-                    <SavedNews
-                      NewsResults={isNewsResults}
-                      cards={savedCards}
-                      isLoggedIn={isLoggedIn}
-                      deleteCard={handleDeleteCard}
-                    />
-                  </Main>
+                <Main>
+                  <SavedNewsHeader searchKeywords={searchKeywords} />
+                  <SavedNews
+                    NewsResults={isNewsResults}
+                    cards={savedCards}
+                    isLoggedIn={isLoggedIn}
+                    deleteCard={deleteArticleFromSavedNews}
+                  />
+                </Main>
                 {/* </ProtectedRoute> */}
                 <Footer />
               </>
@@ -292,7 +332,7 @@ function App() {
           handleRegistration={handleRegistration}
           isOpen={isRegisterOpen}
           onClose={closeAllPopups}
-          // successRegistration={successRegistration}
+          successRegistration={successRegistration}
         />
         <SuccessRegistration
           isOpen={isSuccessRegistration}
