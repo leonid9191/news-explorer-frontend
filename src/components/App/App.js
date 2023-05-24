@@ -19,6 +19,7 @@ import NothingFound from "../NothingFound/NothingFound";
 import MainApi from "../../utils/MainApi";
 import * as auth from "../../utils/auth.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
 function App() {
   const userHistory = useNavigate();
   //Styles
