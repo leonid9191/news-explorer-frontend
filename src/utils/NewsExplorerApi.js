@@ -30,6 +30,6 @@ class NewsExplorerApi {
 }
 
 export const NewsApi = new NewsExplorerApi({
-  baseURL: "https://newsapi.org/v2",
+  baseURL: 'https://nomoreparties.co/news/v2/everything',
   key: "870d9c87a2344d62b67c86a698c15412",
 });
