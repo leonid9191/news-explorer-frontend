@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 export function NewCard({
   card,
   isLoggedIn,
@@ -7,27 +7,53 @@ export function NewCard({
   tipTitle,
   buttonType,
   deleteCard,
+  savedCards,
 }) {
   const [isVisible, setIsVisible] = useState("");
   const [isSaved, setIsSaved] = useState("");
+  useEffect(() => {
+    setIsSaved("");
+  });
+  useEffect(() => {
+    if (buttonType === "delete") {
+      return;
+    }
+    savedCards.forEach((savedCard) => {
+      if (savedCard.title === card.title) {
+        setIsSaved("_saved");
+      }
+    });
+  });
   const handleSaveCard = () => {
     if (!isLoggedIn) {
       loginModal();
     } else {
-      if (buttonType === "save") {
-        saveCard(card);
-        isSaved ? setIsSaved("") : setIsSaved("_saved");
+      if (buttonType === "save" && isSaved) {
+        savedCards.forEach((savedCard) => {
+          if (savedCard.title === card.title) {
+            deleteCard(savedCard._id);
+            setIsSaved("");
+          }
+        });
+      } else {
+        if (buttonType === "save") {
+          saveCard(card);
+          isSaved ? setIsSaved("") : setIsSaved("_saved");
+        }
       }
       if (buttonType === "delete") {
         deleteCard(card._id);
       }
     }
   };
-  const publeshedDate = new Date(card.publishedAt || card.date).toLocaleString("default", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+  const publeshedDate = new Date(card.publishedAt || card.date).toLocaleString(
+    "default",
+    {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }
+  );
   const saveButtonClesses = `label__button label__button${isSaved}`;
   const trashButtonClesses = `label__button label__button_trash`;
   const hiddenHoverClass = () => {
@@ -36,18 +62,22 @@ export function NewCard({
     }
     if (isLoggedIn && buttonType === "delete") {
       setIsVisible("_visible");
-    } 
+    }
   };
   return (
-    <article   className="new-card">
+    <article className="new-card">
       <a href={card.url || card.link} target="_blank" rel="noreferrer">
-        <img src={card.urlToImage || card.urlToImage || card.image} alt="card" className="new-card__image" />
+        <img
+          src={card.urlToImage || card.urlToImage || card.image}
+          alt="card"
+          className="new-card__image"
+        />
       </a>
-          {buttonType === "delete" ? (
-            <span className={`label__keyword`}>{card.keyword}</span>
-          ) : (
-            ""
-          )}
+      {buttonType === "delete" ? (
+        <span className={`label__keyword`}>{card.keyword}</span>
+      ) : (
+        ""
+      )}
       <div className="label">
         <div className="label__container">
           <span className={`label__tip${isVisible}`}>{tipTitle}</span>
@@ -64,7 +94,9 @@ export function NewCard({
       <p className="new-card__date">{publeshedDate}</p>
       <h3 className="new-card__header">{card.title}</h3>
       <p className="new-card__description">{card.description || card.text}</p>
-      <p className="new-card__source">{card.source.name || card.source || ''}</p>
+      <p className="new-card__source">
+        {card.source.name || card.source || ""}
+      </p>
     </article>
   );
 }

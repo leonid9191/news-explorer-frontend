@@ -7,7 +7,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { Header } from "../Header/Header";
 import { SavedNewsHeader } from "../SavedNewsHeader/SavedNewsHeader";
 import { SavedNews } from "../SavedNews/SavedNews";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MobileMenu } from "../MobileMenu/MobileMenu";
 import { LogIn } from "../LogInForm/LogInForm";
 import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
@@ -27,6 +27,12 @@ function App() {
   const [isLoading, setIsLoading] = useState("_hidden");
   const [isNothingFound, setIsNothingFound] = useState("_hidden");
   const [isNewsResults, setIsNewsResults] = useState("_hidden");
+
+  // Validation states
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   //Modals
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -54,6 +60,31 @@ function App() {
       authorization: `Bearer ${jwt}`,
     },
   });
+
+    // FORM VALIDATION
+    const handleInputChange = (event) => {
+      const target = event.target;
+      const name = target.name;
+      const value = target.value;
+      setValues({ ...values, [name]: value });
+      setErrors({ ...errors, [name]: target.validationMessage });
+      setIsValid(target.closest('form').checkValidity());
+      setSubmitError('');
+    };
+  
+    const resetForm = useCallback(
+      (
+        newValues = { email: '', password: '', username: '' },
+        newErrors = {},
+        newIsValid = false
+      ) => {
+        setSubmitError('');
+        setValues(newValues);
+        setErrors(newErrors);
+        setIsValid(newIsValid);
+      },
+      [setValues, setErrors, setIsValid]
+    );
 
   const handleNewsResults = () => {
     setIsNewsResults("");
@@ -83,6 +114,7 @@ function App() {
   const successRegistration = () => {
     setIsRegisterOpen(false);
     setSuccessRegistration(true);
+    resetForm();
   };
   // Save Article
   const saveArticle = (article) => {
@@ -197,10 +229,11 @@ function App() {
             setSuccessRegistration(true);
           } else {
             console.log("Something went wrong.");
+            setSubmitError('This email is not available');
           }
         })
         .catch((err) => {
-          console.log(err.message);
+          console.log(err);
         });
     }
   };
@@ -219,6 +252,7 @@ function App() {
         setIsLoginOpen(false);
       })
       .catch((err) => {
+        setSubmitError('Wrong Email or Password');
         console.log(err);
       });
   };
@@ -228,6 +262,7 @@ function App() {
     setJwt("");
     setIsLoggedIn(false);
     setCurrentUser({});
+    resetForm();
   };
   //check if user logged in
   useEffect(() => {
@@ -244,7 +279,7 @@ function App() {
       setIsLoggedIn(false);
       setCurrentUser({});
     }
-  }, [jwt]);
+  }, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -280,6 +315,8 @@ function App() {
                     saveCard={saveArticle}
                     tipTitle={"Sign in to save articles"}
                     buttonType="save"
+                    savedCards={savedCards}
+                    deleteCard={deleteArticleFromSavedNews}
                   />
                   <NothingFound isNothingFound={isNothingFound} />
                   <Preloader isLoading={isLoading} />
@@ -328,6 +365,7 @@ function App() {
           }}
           isOpen={isLoginOpen}
           onClose={closeAllPopups}
+          onInputChange={handleInputChange}
         />
         <RegistrationForm
           openModal={(e) => {
@@ -339,6 +377,10 @@ function App() {
           isOpen={isRegisterOpen}
           onClose={closeAllPopups}
           successRegistration={successRegistration}
+          onInputChange={handleInputChange}
+          values={values}
+          errors={errors}
+          submitError={submitError}
         />
         <SuccessRegistration
           isOpen={isSuccessRegistration}

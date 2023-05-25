@@ -10,6 +10,7 @@ export function NewCardList({
   tipTitle,
   buttonType,
   deleteCard,
+  savedCards = []
 }) {
   const route = window.location.pathname;
   const [initCards, setInitCards] = useState(3);
@@ -33,6 +34,7 @@ export function NewCardList({
               card={card}
               isLoggedIn={isLoggedIn}
               loginModal={loginModal}
+              savedCards={savedCards}
               saveCard={saveCard}
               tipTitle={tipTitle}
               buttonType={buttonType}
