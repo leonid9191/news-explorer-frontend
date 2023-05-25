@@ -94,6 +94,26 @@
   padding: 0;
   color: #ffffff;
 }
+.form__button_disable{
+  background: #e6e8eb;
+  box-shadow: none;
+  color: #b6bcbf;
+}
+.form__span-error {
+  margin: 0;
+  padding: 0;
+  color: red;
+  display: block;
+  margin-bottom: 13px;
+}
+
+.submit__text-error {
+  display: block;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: red;
+}
 
 .form__redirect {
   margin-top: 16px;

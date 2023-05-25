@@ -28,12 +28,6 @@ function App() {
   const [isNothingFound, setIsNothingFound] = useState("_hidden");
   const [isNewsResults, setIsNewsResults] = useState("_hidden");
 
-  // Validation states
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [isValid, setIsValid] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-
   //Modals
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -60,32 +54,6 @@ function App() {
       authorization: `Bearer ${jwt}`,
     },
   });
-
-    // FORM VALIDATION
-    const handleInputChange = (event) => {
-      const target = event.target;
-      const name = target.name;
-      const value = target.value;
-      setValues({ ...values, [name]: value });
-      setErrors({ ...errors, [name]: target.validationMessage });
-      setIsValid(target.closest('form').checkValidity());
-      setSubmitError('');
-    };
-  
-    const resetForm = useCallback(
-      (
-        newValues = { email: '', password: '', username: '' },
-        newErrors = {},
-        newIsValid = false
-      ) => {
-        setSubmitError('');
-        setValues(newValues);
-        setErrors(newErrors);
-        setIsValid(newIsValid);
-      },
-      [setValues, setErrors, setIsValid]
-    );
-
   const handleNewsResults = () => {
     setIsNewsResults("");
     setIsNothingFound("_hidden");
@@ -114,7 +82,6 @@ function App() {
   const successRegistration = () => {
     setIsRegisterOpen(false);
     setSuccessRegistration(true);
-    resetForm();
   };
   // Save Article
   const saveArticle = (article) => {
@@ -229,7 +196,6 @@ function App() {
             setSuccessRegistration(true);
           } else {
             console.log("Something went wrong.");
-            setSubmitError('This email is not available');
           }
         })
         .catch((err) => {
@@ -252,7 +218,6 @@ function App() {
         setIsLoginOpen(false);
       })
       .catch((err) => {
-        setSubmitError('Wrong Email or Password');
         console.log(err);
       });
   };
@@ -262,7 +227,6 @@ function App() {
     setJwt("");
     setIsLoggedIn(false);
     setCurrentUser({});
-    resetForm();
   };
   //check if user logged in
   useEffect(() => {
@@ -279,7 +243,7 @@ function App() {
       setIsLoggedIn(false);
       setCurrentUser({});
     }
-  }, [isLoggedIn]);
+  }, [jwt]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -365,7 +329,6 @@ function App() {
           }}
           isOpen={isLoginOpen}
           onClose={closeAllPopups}
-          onInputChange={handleInputChange}
         />
         <RegistrationForm
           openModal={(e) => {
@@ -377,10 +340,6 @@ function App() {
           isOpen={isRegisterOpen}
           onClose={closeAllPopups}
           successRegistration={successRegistration}
-          onInputChange={handleInputChange}
-          values={values}
-          errors={errors}
-          submitError={submitError}
         />
         <SuccessRegistration
           isOpen={isSuccessRegistration}
