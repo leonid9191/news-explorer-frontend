@@ -39,6 +39,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [searchKeywords, setSearchKeywords] = useState([]);
+  const [globalErrorMessage, setGlobalErrorMessage] = useState('')
 
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -107,6 +108,7 @@ function App() {
     setIsMobileMenuOpen(false);
     setIsRegisterOpen(false);
     setSuccessRegistration(false);
+    setGlobalErrorMessage('');
   };
 
   //News Explorer Api
@@ -199,7 +201,8 @@ function App() {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err); 
+          setGlobalErrorMessage("Email exist")
         });
     }
   };
@@ -329,6 +332,7 @@ function App() {
           }}
           isOpen={isLoginOpen}
           onClose={closeAllPopups}
+          globalErrorMessage={globalErrorMessage}
         />
         <RegistrationForm
           openModal={(e) => {
@@ -336,6 +340,7 @@ function App() {
             setIsRegisterOpen(false);
             setIsLoginOpen(true);
           }}
+          globalErrorMessage={globalErrorMessage}
           handleRegistration={handleRegistration}
           isOpen={isRegisterOpen}
           onClose={closeAllPopups}

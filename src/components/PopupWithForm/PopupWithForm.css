@@ -20,6 +20,7 @@
 .popup__window {
   position: relative;
   background: #ffffff;
+  max-width: 360px;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 16px;
   padding: 34px 36px 28px 36px;
@@ -94,7 +95,7 @@
   padding: 0;
   color: #ffffff;
 }
-.form__button_disable{
+.form__button:disabled{
   background: #e6e8eb;
   box-shadow: none;
   color: #b6bcbf;
@@ -102,6 +103,7 @@
 .form__span-error {
   margin: 0;
   padding: 0;
+  font-size: 14px;
   color: red;
   display: block;
   margin-bottom: 13px;
@@ -113,6 +115,7 @@
   margin: 0;
   padding: 0;
   color: red;
+  font-size: 14px;
 }
 
 .form__redirect {
