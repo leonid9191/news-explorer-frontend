@@ -14,9 +14,7 @@ export async function register(email, password, username) {
   const res = await fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
-      Accept: "application/json",
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": BASE_URL,
     },
     body: JSON.stringify({
       name: username,
@@ -31,9 +29,7 @@ export async function logIn(email, password) {
   const res = await fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
-      Accept: "application/json",
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": BASE_URL,
     },
     body: JSON.stringify({
       password: password,
@@ -51,9 +47,7 @@ export async function checkingTokenValidity(jwt) {
   const response = await fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
-      Accept: "application/json",
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": BASE_URL,
       Authorization: `Bearer ${jwt}`,
     },
   });
