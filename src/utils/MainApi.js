@@ -4,42 +4,39 @@ export default class MainApi {
     this._headers = headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(
+      `something goes wrong: ${res.status} ${res.statusText}`
+    );
+  }
+
   saveArticle(data) {
-    return fetch(this._baseUrl + '/articles', {
-      method: 'POST',
+    return fetch(this._baseUrl + "/articles", {
+      method: "POST",
       headers: this._headers,
       body: JSON.stringify(data),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject('Error! ' + res.statusText);
-      }
+      this._checkResponse(res);
     });
   }
 
   getSavedArticles() {
-    return fetch(this._baseUrl + '/articles', {
+    return fetch(this._baseUrl + "/articles", {
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject('Error! ' + res.statusText);
-      }
+      this._checkResponse(res);
     });
   }
 
   removeArticle(articleId) {
-    return fetch(this._baseUrl + '/articles/' + articleId, {
-      method: 'DELETE',
+    return fetch(this._baseUrl + "/articles/" + articleId, {
+      method: "DELETE",
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject('Error! ' + res.statusText);
-      }
+      this._checkResponse(res);
     });
   }
 }

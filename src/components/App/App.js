@@ -39,13 +39,13 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [searchKeywords, setSearchKeywords] = useState([]);
-  const [globalErrorMessage, setGlobalErrorMessage] = useState('')
+  const [globalErrorMessage, setGlobalErrorMessage] = useState("");
 
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
 
-  const BASE_URL = "http://localhost:3000";
+  const BASE_URL = "https://api.leo-news.mooo.com";
   const mainApi = new MainApi({
     baseUrl: BASE_URL,
     headers: {
@@ -108,7 +108,7 @@ function App() {
     setIsMobileMenuOpen(false);
     setIsRegisterOpen(false);
     setSuccessRegistration(false);
-    setGlobalErrorMessage('');
+    setGlobalErrorMessage("");
   };
 
   //News Explorer Api
@@ -170,6 +170,7 @@ function App() {
     mainApi
       .getSavedArticles()
       .then((res) => {
+        console.log(res);
         setSavedCards(res);
       })
       .catch((err) => console.log(err));
@@ -201,8 +202,8 @@ function App() {
           }
         })
         .catch((err) => {
-          console.log(err); 
-          setGlobalErrorMessage("Email exist")
+          console.log(err);
+          setGlobalErrorMessage("Email exist");
         });
     }
   };
@@ -237,9 +238,9 @@ function App() {
       auth
         .checkingTokenValidity(jwt)
         .then((user) => {
-          getSavedArticles();
           setCurrentUser(user.data);
           setIsLoggedIn(true);
+          getSavedArticles();
         })
         .catch((err) => console.log(err));
     } else {
@@ -311,7 +312,7 @@ function App() {
                     savedCards={savedCards}
                   />
                   <SavedNews
-                    NewsResults={savedCards.length < 1 ? "_hidden" : ""}
+                    NewsResults={""}
                     cards={savedCards}
                     isLoggedIn={isLoggedIn}
                     deleteCard={deleteArticleFromSavedNews}
