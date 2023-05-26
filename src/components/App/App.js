@@ -45,15 +45,14 @@ function App() {
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
 
-  const BASE_URL = "https://api.leo-news.mooo.com";
-  // const BASE_URL = "http://localhost:3000";
+  // const BASE_URL = "https://api.leo-news.mooo.com";
+  const BASE_URL = "http://localhost:3000";
   const mainApi = new MainApi({
     baseUrl: BASE_URL,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      // "Access-Control-Allow-Origin": BASE_URL,
-      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Origin": BASE_URL,
       authorization: `Bearer ${jwt}`,
     },
   });
@@ -172,7 +171,6 @@ function App() {
     mainApi
       .getSavedArticles()
       .then((res) => {
-        console.log(res);
         setSavedCards(res);
       })
       .catch((err) => console.log(err));
