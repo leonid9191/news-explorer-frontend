@@ -7,7 +7,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { Header } from "../Header/Header";
 import { SavedNewsHeader } from "../SavedNewsHeader/SavedNewsHeader";
 import { SavedNews } from "../SavedNews/SavedNews";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { MobileMenu } from "../MobileMenu/MobileMenu";
 import { LogIn } from "../LogInForm/LogInForm";
 import { RegistrationForm } from "../RegistrationForm/RegistrationForm";
@@ -45,7 +45,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
 
-  const BASE_URL = "https://api.leo-news.mooo.com";
+  const BASE_URL = "https://api.news-leo.mooo.com";
   // const BASE_URL = "http://localhost:3000";
   const mainApi = new MainApi({
     baseUrl: BASE_URL,
@@ -218,6 +218,7 @@ function App() {
       .then((res) => {
         setCurrentUser(res.data);
         localStorage.setItem("jwt", res.token);
+        setJwt(res.token)
         setIsLoggedIn(true);
         setIsLoginOpen(false);
       })
@@ -305,7 +306,6 @@ function App() {
                   handleLogOut={handleLogOut}
                   openHamburger={handleOpenHamburger}
                 />
-                {/* <Main> */}
                 <ProtectedRoute isLoggedIn={isLoggedIn} component={Main}>
                   <SavedNewsHeader
                     searchKeywords={searchKeywords}
@@ -318,7 +318,6 @@ function App() {
                     deleteCard={deleteArticleFromSavedNews}
                   />
                 </ProtectedRoute>
-                {/* </Main> */}
                 <Footer />
               </>
             }

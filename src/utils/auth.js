@@ -1,4 +1,4 @@
-const BASE_URL = "https://api.leo-news.mooo.com";
+const BASE_URL = "https://api.news-leo.mooo.com";
 // const BASE_URL = "http://localhost:3000";
 
 function checkResponse(res) {
@@ -6,7 +6,7 @@ function checkResponse(res) {
     return res.json();
   }
   return Promise.reject(
-    `something goes wrong: ${res.status} ${res.statusText}`
+    `Something goes wrong: ${res.status} ${res.statusText}`
   );
 }
 
@@ -14,6 +14,7 @@ export async function register(email, password, username) {
   const res = await fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
+      Accept: 'application/json',
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
