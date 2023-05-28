@@ -92,7 +92,6 @@ export function RegistrationForm({
         <button
           type="submit"
           ref={button}
-          onClick={handleRegistration}
           className="form__button"
           disabled
         >
