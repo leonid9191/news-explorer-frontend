@@ -16,7 +16,7 @@ import { NewsApi } from "../../utils/NewsExplorerApi";
 import { Preloader } from "../Preloader/Preloader";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import NothingFound from "../NothingFound/NothingFound";
-import MainApi from "../../utils/MainApi";
+import {mainApi} from "../../utils/MainApi";
 import * as auth from "../../utils/auth.js";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
@@ -45,17 +45,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
 
-  const BASE_URL = "https://api.news-leo.mooo.com";
-  // const BASE_URL = "http://localhost:3000";
-  const mainApi = new MainApi({
-    baseUrl: BASE_URL,
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": BASE_URL,
-      authorization: `Bearer ${jwt}`,
-    },
-  });
+
   const handleNewsResults = () => {
     setIsNewsResults("");
     setIsNothingFound("_hidden");
@@ -97,7 +87,7 @@ function App() {
         link: article.url,
         image: article.urlToImage,
         owner: currentUser._id,
-      })
+      }, jwt)
       .then((res) => {
         setSavedCards([res.data, ...savedCards]);
       })
@@ -169,7 +159,7 @@ function App() {
 
   const getSavedArticles = () => {
     mainApi
-      .getSavedArticles()
+      .getSavedArticles(jwt)
       .then((res) => {
         setSavedCards(res);
       })
@@ -179,7 +169,7 @@ function App() {
   // Delete from saved
   const deleteArticleFromSavedNews = (articleId) => {
     if (jwt) {
-      mainApi.removeArticle(articleId).then(() => {
+      mainApi.removeArticle(articleId, jwt).then(() => {
         const newSavedArticles = savedCards.filter(
           (item) => item._id !== articleId
         );
