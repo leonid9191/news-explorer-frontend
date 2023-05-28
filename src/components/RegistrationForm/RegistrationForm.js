@@ -1,5 +1,5 @@
 import { PopupWithForm } from "../PopupWithForm/PopupWithForm";
-import { useForm } from "../useFormValidation/useFormValidation";
+import { useForm } from "../../hooks/useFormValidation/useFormValidation";
 import { useState, useEffect, useRef } from "react";
 
 export function RegistrationForm({
@@ -7,12 +7,12 @@ export function RegistrationForm({
   isOpen,
   onClose,
   handleRegistration,
-  globalErrorMessage
+  globalErrorMessage,
 }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const button = useRef()
+  const button = useRef();
   const { handleChange, isValid, errors, resetForm } = useForm();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ export function RegistrationForm({
     if (!isOpen) {
       resetForm();
     }
-  }, [isOpen])
+  }, [isOpen]);
   useEffect(() => {
     if (!isValid) {
       button.current.setAttribute("disabled", "");
@@ -30,7 +30,7 @@ export function RegistrationForm({
     if (isValid) {
       button.current.removeAttribute("disabled", "");
     }
-  }, [isValid])
+  }, [isValid]);
   return (
     <PopupWithForm title={"Sign up"} isOpen={isOpen} onClose={onClose}>
       <form className="form" onSubmit={handleSubmit}>
@@ -89,12 +89,7 @@ export function RegistrationForm({
         <span id="input_type_global-error" className="form__span-error">
           {globalErrorMessage && globalErrorMessage}
         </span>
-        <button
-          type="submit"
-          ref={button}
-          className="form__button"
-          disabled
-        >
+        <button type="submit" ref={button} className="form__button" disabled>
           Sign up
         </button>
         <div className="form__redirect">
