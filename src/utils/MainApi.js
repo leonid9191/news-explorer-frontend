@@ -19,9 +19,7 @@ class MainApi {
         authorization: `Bearer ${jwt}`,
       },
       body: JSON.stringify(data),
-    }).then((res) => {
-      this._checkResponse(res);
-    });
+    }).then(this._checkResponse);
   }
 
   getSavedArticles(jwt) {
@@ -30,9 +28,7 @@ class MainApi {
         "Content-Type": "application/json",
         authorization: `Bearer ${jwt}`,
       },
-    }).then((res) => {
-      this._checkResponse(res);
-    });
+    }).then(this._checkResponse);
   }
 
   removeArticle(articleId, jwt) {
@@ -42,9 +38,7 @@ class MainApi {
         "Content-Type": "application/json",
         authorization: `Bearer ${jwt}`,
       },
-    }).then((res) => {
-      this._checkResponse(res);
-    });
+    }).then(this._checkResponse);
   }
 }
 
