@@ -174,6 +174,9 @@ function App() {
           (item) => item._id !== articleId
         );
         setSavedCards(newSavedArticles);
+      })
+      .catch((err) => {
+        console.log(err);
       });
     }
   };
@@ -193,7 +196,7 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
-          setGlobalErrorMessage("Email exist");
+          setGlobalErrorMessage("Email already in system");
         });
     }
   };
@@ -214,6 +217,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        setGlobalErrorMessage("Incorrect email or password");
       });
   };
   //log Out

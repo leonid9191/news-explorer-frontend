@@ -69,6 +69,9 @@ export function LogIn({
             {errors.password ? errors.password : ""}
           </span>
         </fieldset>
+        <span id="input_type_global-error" className="form__span-error">
+          {globalErrorMessage && globalErrorMessage}
+        </span>
         <button ref={button} type="submit" className="form__button">
           Sign in
         </button>
