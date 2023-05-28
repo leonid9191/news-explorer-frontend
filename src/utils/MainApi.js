@@ -3,6 +3,14 @@ class MainApi {
     this._baseUrl = baseUrl;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(
+      `Something goes wrong: ${res.status} ${res.statusText}`
+    );
+  }
   saveArticle(data, jwt) {
     return fetch(this._baseUrl + "/articles", {
       method: "POST",
@@ -12,11 +20,7 @@ class MainApi {
       },
       body: JSON.stringify(data),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject("Error! " + res.statusText);
-      }
+      this._checkResponse(res);
     });
   }
 
@@ -27,11 +31,7 @@ class MainApi {
         authorization: `Bearer ${jwt}`,
       },
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject("Error! " + res.statusText);
-      }
+      this._checkResponse(res);
     });
   }
 
@@ -43,11 +43,7 @@ class MainApi {
         authorization: `Bearer ${jwt}`,
       },
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        return Promise.reject("Error! " + res.statusText);
-      }
+      this._checkResponse(res);
     });
   }
 }
