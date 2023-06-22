@@ -16,6 +16,10 @@ import { NewsApi } from "../../utils/NewsExplorerApi";
 import { Preloader } from "../Preloader/Preloader";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import NothingFound from "../NothingFound/NothingFound";
+import {mainApi} from "../../utils/MainApi";
+import * as auth from "../../utils/auth.js";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
 function App() {
   const userHistory = useNavigate();
   //Styles
@@ -31,13 +35,16 @@ function App() {
   const [isSuccessRegistration, setSuccessRegistration] = useState(false);
 
   //Status
+  const [jwt, setJwt] = useState(localStorage.getItem("jwt"));
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [searchKeywords, setSearchKeywords] = useState([]);
+  const [globalErrorMessage, setGlobalErrorMessage] = useState("");
 
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
+
 
   const handleNewsResults = () => {
     setIsNewsResults("");
@@ -49,16 +56,11 @@ function App() {
     setIsLoading("_hidden");
     setIsNothingFound("");
   };
-  const handleLoginClick = (e) => {
+  const handleLoginOpen = (e) => {
     e.preventDefault();
     setIsLoginOpen(true);
   };
-  const handleLoggedIn = (e) => {
-    e.preventDefault();
-    localStorage.setItem("jwt", true);
-    setIsLoggedIn(true);
-    closeAllPopups();
-  };
+
   const handleLogOut = (e) => {
     e.preventDefault();
     localStorage.clear();
@@ -73,17 +75,23 @@ function App() {
     setIsRegisterOpen(false);
     setSuccessRegistration(true);
   };
-
-  //save card
-  const handleSaveCard = (card) => {
-    setSavedCards([card, ...savedCards]);
-    localStorage.setItem("save", savedCards);
-  };
-  //delete card
-  const handleDeleteCard = (card) => {
-    const newCards = savedCards.filter((c) => c.title !== card.title);
-    localStorage.setItem("save", savedCards);
-    setSavedCards(newCards);
+  // Save Article
+  const saveArticle = (article) => {
+    mainApi
+      .saveArticle({
+        keyword: keyword,
+        title: article.title,
+        text: article.description,
+        date: article.publishedAt,
+        source: article.source.name,
+        link: article.url,
+        image: article.urlToImage,
+        owner: currentUser._id,
+      }, jwt)
+      .then((res) => {
+        setSavedCards([res.data, ...savedCards]);
+      })
+      .catch((err) => console.log(err));
   };
 
   const closeAllPopups = () => {
@@ -91,6 +99,7 @@ function App() {
     setIsMobileMenuOpen(false);
     setIsRegisterOpen(false);
     setSuccessRegistration(false);
+    setGlobalErrorMessage("");
   };
 
   //News Explorer Api
@@ -103,7 +112,7 @@ function App() {
         if (cardData.status === "ok") {
           if (cardData.totalResults > 0) {
             setKeyword(userKeyword);
-            setSearchKeywords([keyword, ...searchKeywords]);
+
             setCards(newsArticles);
             handleNewsResults();
           } else {
@@ -122,14 +131,6 @@ function App() {
         console.log(err);
       });
   };
-
-  //check if user logged in before and save email
-  useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      setIsLoggedIn(true);
-    }
-  }, []);
 
   //close popups by ESC
   useEffect(() => {
@@ -155,13 +156,101 @@ function App() {
       document.removeEventListener("mousedown", clickClose);
     };
   }, []);
+
+  const getSavedArticles = () => {
+    mainApi
+      .getSavedArticles(jwt)
+      .then((res) => {
+        setSavedCards(res);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // Delete from saved
+  const deleteArticleFromSavedNews = (articleId) => {
+    if (jwt) {
+      mainApi.removeArticle(articleId, jwt).then(() => {
+        const newSavedArticles = savedCards.filter(
+          (item) => item._id !== articleId
+        );
+        setSavedCards(newSavedArticles);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  };
+
+  //Registration
+  const handleRegistration = (email, password, username) => {
+    if (password) {
+      auth
+        .register(email, password, username)
+        .then((res) => {
+          if (res) {
+            setIsRegisterOpen(false);
+            setSuccessRegistration(true);
+          } else {
+            console.log("Something went wrong.");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setGlobalErrorMessage("Email already in system");
+        });
+    }
+  };
+
+  //logIn by email and password
+  const handleLogin = (email, password) => {
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .logIn(email, password)
+      .then((res) => {
+        setCurrentUser(res.data);
+        localStorage.setItem("jwt", res.token);
+        setJwt(res.token)
+        setIsLoggedIn(true);
+        setIsLoginOpen(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setGlobalErrorMessage("Incorrect email or password");
+      });
+  };
+  //log Out
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    setJwt("");
+    setIsLoggedIn(false);
+    setCurrentUser({});
+  };
+  //check if user logged in
+  useEffect(() => {
+    if (jwt) {
+      auth
+        .checkingTokenValidity(jwt)
+        .then((user) => {
+          setCurrentUser(user.data);
+          setIsLoggedIn(true);
+          getSavedArticles();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setIsLoggedIn(false);
+      setCurrentUser({});
+    }
+  }, [jwt]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
         <MobileMenu
-          handleLoginClick={handleLoginClick}
+          handleLoginClick={handleLoginOpen}
           isLoggedIn={isLoggedIn}
-          handleLogOut={handleLogOut}
+          handleLogOut={handleLogout}
           isOpen={isMobileMenuOpen}
           onClose={closeAllPopups}
         />
@@ -172,24 +261,25 @@ function App() {
             element={
               <>
                 <Header
-                  handleLoginClick={handleLoginClick}
+                  handleLoginClick={handleLoginOpen}
                   openHamburger={handleOpenHamburger}
                   isLoggedIn={isLoggedIn}
-                  handleLogOut={handleLogOut}
+                  handleLogOut={handleLogout}
                   handleNewsSearch={handleNewsSearch}
                 />
                 <Main>
                   <NewCardList
                     NewsResults={isNewsResults}
-                    keyword={keyword}
                     cards={cards}
                     isLoggedIn={isLoggedIn}
                     loginModal={() => {
                       setIsLoginOpen(true);
                     }}
-                    saveCard={handleSaveCard}
+                    saveCard={saveArticle}
                     tipTitle={"Sign in to save articles"}
                     buttonType="save"
+                    savedCards={savedCards}
+                    deleteCard={deleteArticleFromSavedNews}
                   />
                   <NothingFound isNothingFound={isNothingFound} />
                   <Preloader isLoading={isLoading} />
@@ -210,22 +300,25 @@ function App() {
                   handleLogOut={handleLogOut}
                   openHamburger={handleOpenHamburger}
                 />
-                <Main>
-                  <SavedNewsHeader searchKeywords={searchKeywords} />
+                <ProtectedRoute isLoggedIn={isLoggedIn} component={Main}>
+                  <SavedNewsHeader
+                    searchKeywords={searchKeywords}
+                    savedCards={savedCards}
+                  />
                   <SavedNews
-                    NewsResults={isNewsResults}
+                    NewsResults={""}
                     cards={savedCards}
                     isLoggedIn={isLoggedIn}
-                    deleteCard={handleDeleteCard}
+                    deleteCard={deleteArticleFromSavedNews}
                   />
-                </Main>
+                </ProtectedRoute>
                 <Footer />
               </>
             }
           />
         </Routes>
         <LogIn
-          onLoggedIn={handleLoggedIn}
+          onLoggedIn={handleLogin}
           openModal={(e) => {
             e.preventDefault();
             setIsLoginOpen(false);
@@ -233,6 +326,7 @@ function App() {
           }}
           isOpen={isLoginOpen}
           onClose={closeAllPopups}
+          globalErrorMessage={globalErrorMessage}
         />
         <RegistrationForm
           openModal={(e) => {
@@ -240,6 +334,8 @@ function App() {
             setIsRegisterOpen(false);
             setIsLoginOpen(true);
           }}
+          globalErrorMessage={globalErrorMessage}
+          handleRegistration={handleRegistration}
           isOpen={isRegisterOpen}
           onClose={closeAllPopups}
           successRegistration={successRegistration}

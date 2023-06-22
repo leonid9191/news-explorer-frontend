@@ -16,6 +16,7 @@ export function SearchForm({ handleNewsSearch }) {
         <input
           type="text"
           onChange={(e) => setKeyword(e.target.value)}
+          value={keyword}
           name="searchNews"
           id="searchNews"
           placeholder="Enter topic"

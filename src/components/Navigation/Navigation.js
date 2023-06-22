@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import { useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import icon_black from "../../images/exit.svg"
 import icon_white from "../../images/exit_white.svg"
 
@@ -9,9 +11,12 @@ export function Navigation({
   isLoggedIn,
   handleLogOut
 }) {
-  const user = "Leonid";
+  const currentUser = useContext(CurrentUserContext);
   const route = window.location.pathname;
-
+  if (currentUser === undefined){
+    console.log('log context');
+    return
+  }
   return (
     <div className="navigation">
       <ul className="navigation__container">
@@ -45,7 +50,7 @@ export function Navigation({
               onClick={handleLogOut}
               className={`navigation__button${darkStyle} navigation__sign-out`}
             >
-              {user}
+              {currentUser.name}
               <img
                 className="navigation__button_icon"
                 src={darkStyle ? icon_black : icon_white}
